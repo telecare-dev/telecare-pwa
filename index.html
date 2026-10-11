@@ -97,17 +97,20 @@
         }
 
         .form-group input,
-        .form-group select {
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 14px;
             transition: border-color 0.3s;
+            font-family: inherit;
         }
 
         .form-group input:focus,
-        .form-group select:focus {
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -156,6 +159,7 @@
             cursor: pointer;
             font-weight: 600;
             text-decoration: none;
+            margin: 0 3px;
         }
 
         .error-message {
@@ -621,92 +625,6 @@
         .section.active {
             display: block;
         }
-
-        .voice-consultation {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .voice-consultation h3 {
-            margin-bottom: 15px;
-        }
-
-        .timer {
-            font-size: 48px;
-            font-weight: bold;
-            margin: 20px 0;
-            font-family: 'Courier New', monospace;
-        }
-
-        .voice-controls {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .voice-btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .start-btn {
-            background: white;
-            color: #667eea;
-        }
-
-        .end-btn {
-            background: #fee;
-            color: #c33;
-        }
-
-        .rating-stars {
-            display: flex;
-            gap: 10px;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .star {
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .star:hover {
-            transform: scale(1.2);
-        }
-
-        .star.active {
-            color: #ffc107;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 30px;
-        }
-
-        .spinner {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f0f0f0;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body>
@@ -733,7 +651,7 @@
 
                 <div id="messageBox"></div>
 
-                <!-- PATIENT LOGIN/REGISTER -->
+                <!-- PATIENT AUTH -->
                 <div id="patientAuthForm">
                     <div id="patientLoginForm">
                         <h2>Patient Login</h2>
@@ -749,7 +667,7 @@
                             <button type="button" class="btn btn-primary" onclick="patientLogin()">Login</button>
                         </form>
                         <div class="toggle-auth">
-                            Don't have an account? <a onclick="togglePatientAuth()">Register</a>
+                            <a onclick="togglePatientAuth()">Register</a> | <a onclick="showForgotPasswordForm('patient')">Forgot Password?</a>
                         </div>
                     </div>
 
@@ -769,18 +687,22 @@
                                 <input type="date" id="patientRegDOB" required>
                             </div>
                             <div class="form-group">
+                                <label>Security Question: What is your mother's maiden name?</label>
+                                <input type="text" id="patientRegSecurityAnswer" placeholder="Answer for password recovery" required>
+                            </div>
+                            <div class="form-group">
                                 <label>Password</label>
                                 <input type="password" id="patientRegPassword" placeholder="Create a strong password" required>
                             </div>
                             <button type="button" class="btn btn-primary" onclick="patientRegister()">Register</button>
                         </form>
                         <div class="toggle-auth">
-                            Already have an account? <a onclick="togglePatientAuth()">Login</a>
+                            <a onclick="togglePatientAuth()">Back to Login</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- CLINICIAN LOGIN/REGISTER -->
+                <!-- CLINICIAN AUTH -->
                 <div id="clinicianAuthForm" style="display: none;">
                     <div id="clinicianLoginForm">
                         <h2>Clinician Login</h2>
@@ -796,7 +718,7 @@
                             <button type="button" class="btn btn-primary" onclick="clinicianLogin()">Login</button>
                         </form>
                         <div class="toggle-auth">
-                            Don't have an account? <a onclick="toggleClinicianAuth()">Register</a>
+                            <a onclick="toggleClinicianAuth()">Register</a> | <a onclick="showForgotPasswordForm('clinician')">Forgot Password?</a>
                         </div>
                     </div>
 
@@ -834,15 +756,25 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>Security Question: What city were you born in?</label>
+                                <input type="text" id="clinicianRegSecurityAnswer" placeholder="Answer for password recovery" required>
+                            </div>
+                            <div class="form-group">
                                 <label>Password</label>
                                 <input type="password" id="clinicianRegPassword" placeholder="Create a strong password" required>
                             </div>
                             <button type="button" class="btn btn-primary" onclick="clinicianRegister()">Register</button>
                         </form>
                         <div class="toggle-auth">
-                            Already have an account? <a onclick="toggleClinicianAuth()">Login</a>
+                            <a onclick="toggleClinicianAuth()">Back to Login</a>
                         </div>
                     </div>
+                </div>
+
+                <!-- FORGOT PASSWORD FORM -->
+                <div id="forgotPasswordForm" style="display: none;">
+                    <h2 id="forgotPasswordTitle">Reset Password</h2>
+                    <div id="forgotPasswordContent"></div>
                 </div>
             </div>
         </div>
@@ -1095,6 +1027,7 @@
                 const role = this.dataset.role;
                 document.getElementById('patientAuthForm').style.display = role === 'patient' ? 'block' : 'none';
                 document.getElementById('clinicianAuthForm').style.display = role === 'clinician' ? 'block' : 'none';
+                document.getElementById('forgotPasswordForm').style.display = 'none';
                 document.getElementById('messageBox').innerHTML = '';
             });
         });
@@ -1104,6 +1037,7 @@
                 document.getElementById('patientLoginForm').style.display === 'none' ? 'block' : 'none';
             document.getElementById('patientRegisterForm').style.display = 
                 document.getElementById('patientRegisterForm').style.display === 'none' ? 'block' : 'none';
+            document.getElementById('forgotPasswordForm').style.display = 'none';
         }
 
         function toggleClinicianAuth() {
@@ -1111,6 +1045,7 @@
                 document.getElementById('clinicianLoginForm').style.display === 'none' ? 'block' : 'none';
             document.getElementById('clinicianRegisterForm').style.display = 
                 document.getElementById('clinicianRegisterForm').style.display === 'none' ? 'block' : 'none';
+            document.getElementById('forgotPasswordForm').style.display = 'none';
         }
 
         // Simple password hashing for localStorage
@@ -1124,13 +1059,143 @@
             return 'hash_' + Math.abs(hash).toString(16);
         }
 
+        // =======================
+        // FORGOT PASSWORD
+        // =======================
+        function showForgotPasswordForm(role) {
+            document.getElementById('patientLoginForm').style.display = 'none';
+            document.getElementById('patientRegisterForm').style.display = 'none';
+            document.getElementById('clinicianLoginForm').style.display = 'none';
+            document.getElementById('clinicianRegisterForm').style.display = 'none';
+            document.getElementById('forgotPasswordForm').style.display = 'block';
+            
+            let html = '';
+            if (role === 'patient') {
+                html = `
+                    <form>
+                        <div class="form-group">
+                            <label>Phone Number (Associated with Account)</label>
+                            <input type="tel" id="resetPatientPhone" placeholder="+254..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>What is your mother's maiden name?</label>
+                            <input type="text" id="resetPatientSecurityAnswer" placeholder="Security answer" required>
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="resetPatientNewPassword" placeholder="Enter new password" required>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="resetPatientPassword()">Reset Password</button>
+                    </form>
+                    <div class="toggle-auth" style="margin-top: 20px;">
+                        <a onclick="togglePatientAuth()">Back to Login</a>
+                    </div>
+                `;
+            } else {
+                html = `
+                    <form>
+                        <div class="form-group">
+                            <label>License Number or Email</label>
+                            <input type="text" id="resetClinicianId" placeholder="License or email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>What city were you born in?</label>
+                            <input type="text" id="resetClinicianSecurityAnswer" placeholder="Security answer" required>
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="resetClinicianNewPassword" placeholder="Enter new password" required>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="resetClinicianPassword()">Reset Password</button>
+                    </form>
+                    <div class="toggle-auth" style="margin-top: 20px;">
+                        <a onclick="toggleClinicianAuth()">Back to Login</a>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('forgotPasswordContent').innerHTML = html;
+        }
+
+        function resetPatientPassword() {
+            const phone = document.getElementById('resetPatientPhone').value;
+            const securityAnswer = document.getElementById('resetPatientSecurityAnswer').value.toLowerCase();
+            const newPassword = document.getElementById('resetPatientNewPassword').value;
+
+            const patient = patients.find(p => p.phone === phone);
+
+            if (!patient) {
+                alert('❌ Patient account not found with this phone number');
+                return;
+            }
+
+            if (patient.securityAnswer.toLowerCase() !== securityAnswer) {
+                alert('❌ Security answer is incorrect');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                alert('❌ Password must be at least 6 characters');
+                return;
+            }
+
+            // Update password
+            patient.passwordHash = hashPassword(newPassword);
+            patients = patients.map(p => p.id === patient.id ? patient : p);
+            localStorage.setItem('telecare_patients', JSON.stringify(patients));
+
+            alert('✅ Password has been reset successfully! Please login with your new password.');
+            document.getElementById('resetPatientPhone').value = '';
+            document.getElementById('resetPatientSecurityAnswer').value = '';
+            document.getElementById('resetPatientNewPassword').value = '';
+            togglePatientAuth();
+        }
+
+        function resetClinicianPassword() {
+            const loginId = document.getElementById('resetClinicianId').value;
+            const securityAnswer = document.getElementById('resetClinicianSecurityAnswer').value.toLowerCase();
+            const newPassword = document.getElementById('resetClinicianNewPassword').value;
+
+            const clinician = clinicians.find(c => (c.license === loginId || c.email === loginId));
+
+            if (!clinician) {
+                alert('❌ Clinician account not found');
+                return;
+            }
+
+            if (clinician.securityAnswer.toLowerCase() !== securityAnswer) {
+                alert('❌ Security answer is incorrect');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                alert('❌ Password must be at least 6 characters');
+                return;
+            }
+
+            // Update password
+            clinician.passwordHash = hashPassword(newPassword);
+            clinicians = clinicians.map(c => c.id === clinician.id ? clinician : c);
+            localStorage.setItem('telecare_clinicians', JSON.stringify(clinicians));
+
+            alert('✅ Password has been reset successfully! Please login with your new password.');
+            document.getElementById('resetClinicianId').value = '';
+            document.getElementById('resetClinicianSecurityAnswer').value = '';
+            document.getElementById('resetClinicianNewPassword').value = '';
+            toggleClinicianAuth();
+        }
+
+        // =======================
+        // PATIENT FUNCTIONS
+        // =======================
         function patientRegister() {
             const name = document.getElementById('patientRegName').value;
             const phone = document.getElementById('patientRegPhone').value;
             const dob = document.getElementById('patientRegDOB').value;
+            const securityAnswer = document.getElementById('patientRegSecurityAnswer').value;
             const password = document.getElementById('patientRegPassword').value;
 
-            if (!name || !phone || !dob || !password) {
+            if (!name || !phone || !dob || !securityAnswer || !password) {
                 showMessage('messageBox', 'Please fill all fields', 'error');
                 return;
             }
@@ -1145,6 +1210,7 @@
                 name,
                 phone,
                 dob,
+                securityAnswer,
                 passwordHash: hashPassword(password),
                 createdAt: new Date().toISOString()
             };
@@ -1173,15 +1239,19 @@
             showDashboard();
         }
 
+        // =======================
+        // CLINICIAN FUNCTIONS
+        // =======================
         function clinicianRegister() {
             const name = document.getElementById('clinicianRegName').value;
             const license = document.getElementById('clinicianRegLicense').value;
             const email = document.getElementById('clinicianRegEmail').value;
             const phone = document.getElementById('clinicianRegPhone').value;
             const specialty = document.getElementById('clinicianRegSpecialty').value;
+            const securityAnswer = document.getElementById('clinicianRegSecurityAnswer').value;
             const password = document.getElementById('clinicianRegPassword').value;
 
-            if (!name || !license || !email || !phone || !specialty || !password) {
+            if (!name || !license || !email || !phone || !specialty || !securityAnswer || !password) {
                 showMessage('messageBox', 'Please fill all fields', 'error');
                 return;
             }
@@ -1198,6 +1268,7 @@
                 email,
                 phone,
                 specialty,
+                securityAnswer,
                 passwordHash: hashPassword(password),
                 earnings: 0,
                 consultations: 0,
@@ -1246,6 +1317,7 @@
                 document.getElementById('patientRegisterForm').style.display = 'none';
                 document.getElementById('clinicianLoginForm').style.display = 'block';
                 document.getElementById('clinicianRegisterForm').style.display = 'none';
+                document.getElementById('forgotPasswordForm').style.display = 'none';
                 document.getElementById('messageBox').innerHTML = '';
             }
         }
@@ -1317,14 +1389,14 @@
 
             let content = '<h2 style="color: #666; margin-bottom: 20px;">Upcoming Appointments</h2>';
             if (userAppointments.length === 0) {
-                content += '<p style="color: #999;">No appointments scheduled yet. <a href="#" onclick="showSection(\'appointments\')" style="color: #667eea;">Book one now</a></p>';
+                content += '<p style="color: #999;">No appointments scheduled yet</p>';
             } else {
                 userAppointments.slice(0, 3).forEach(apt => {
                     content += `
                         <div class="consultation-request">
                             <div class="patient-info">
                                 <div class="patient-details">
-                                    <div class="patient-name">Appointment with Clinician</div>
+                                    <div class="patient-name">Appointment Scheduled</div>
                                     <div class="patient-phone">Scheduled: ${new Date(apt.appointmentDate).toLocaleString()}</div>
                                 </div>
                                 <div class="consultation-fee">KES ${apt.fee}</div>
@@ -1381,7 +1453,7 @@
                                     <span class="detail-value">${new Date(apt.appointmentDate).toLocaleString()}</span>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" style="width: auto; margin-top: 10px;" onclick="startConsultation('${apt.id}')">Start Consultation</button>
+                            <button class="btn btn-primary" style="width: auto; margin-top: 10px;" onclick="startConsultation(${apt.id})">Start Consultation</button>
                         </div>
                     `;
                 });
@@ -2006,6 +2078,7 @@ ${new Date().toLocaleString()}
                 email: 'mohamud@medicare.com',
                 phone: '+254721208978',
                 specialty: 'General Practice',
+                securityAnswer: 'nairobi',
                 passwordHash: hashPassword('demo123'),
                 earnings: 0,
                 consultations: 0,
