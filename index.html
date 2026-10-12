@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TelemediCare - Professional Telemedicine Platform</title>
-    <meta name="description" content="Professional telemedicine consultation platform in Kenya">
+    <title>PioneerCare - Professional Telemedicine Platform</title>
+    <meta name="description" content="Professional telemedicine consultation platform in Kenya - PioneerCare">
     <meta name="theme-color" content="#6366f1">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
@@ -147,6 +147,19 @@
             background: #e0e0e0;
         }
 
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 12px;
+            width: auto;
+        }
+
+        .btn-icon {
+            padding: 8px 12px;
+            font-size: 12px;
+            width: auto;
+            margin-right: 5px;
+        }
+
         .toggle-auth {
             text-align: center;
             margin-top: 20px;
@@ -159,7 +172,6 @@
             cursor: pointer;
             font-weight: 600;
             text-decoration: none;
-            margin: 0 3px;
         }
 
         .error-message {
@@ -174,6 +186,15 @@
         .success-message {
             background: #efe;
             color: #3c3;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .info-message {
+            background: #eff;
+            color: #06a;
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -354,8 +375,206 @@
             font-weight: bold;
         }
 
-        /* CLINICIAN DASHBOARD */
-        .consultation-request {
+        /* DOCTOR CARD */
+        .doctor-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .doctor-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .doctor-info {
+            flex: 1;
+        }
+
+        .doctor-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .doctor-specialty {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .doctor-rating {
+            font-size: 12px;
+            color: #ffc107;
+            margin-bottom: 8px;
+        }
+
+        .doctor-contact {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .doctor-actions {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+        }
+
+        /* MESSAGE/CONSULTATION CARD */
+        .message-card {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .message-sender {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .message-content {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message-input-area {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .message-input-area textarea {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            resize: vertical;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .message-input-area textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* PRESCRIPTION CARD */
+        .prescription-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .prescription-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .prescription-doctor {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .prescription-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .prescription-drugs {
+            margin-bottom: 15px;
+        }
+
+        .drug-item {
+            background: #f0f4ff;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .drug-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .drug-details {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .prescription-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .download-btn {
+            background: #667eea;
+            color: white;
+        }
+
+        .download-btn:hover {
+            background: #5568d3;
+        }
+
+        .call-btn {
+            background: #10b981;
+            color: white;
+        }
+
+        .call-btn:hover {
+            background: #059669;
+        }
+
+        .message-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .message-btn:hover {
+            background: #2563eb;
+        }
+
+        /* APPOINTMENT REQUEST CARD */
+        .appointment-card {
             background: white;
             border: 2px solid #e0e0e0;
             border-radius: 12px;
@@ -364,49 +583,53 @@
             transition: all 0.3s;
         }
 
-        .consultation-request:hover {
+        .appointment-card:hover {
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             border-color: #667eea;
         }
 
-        .patient-info {
+        .appointment-header {
             display: flex;
             justify-content: space-between;
+            align-items: start;
             margin-bottom: 15px;
         }
 
-        .patient-details {
-            flex: 1;
-        }
-
-        .patient-name {
-            font-size: 18px;
+        .appointment-doctor {
             font-weight: 600;
             color: #333;
         }
 
-        .patient-phone {
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .consultation-fee {
-            background: #f0f4ff;
-            color: #667eea;
-            padding: 8px 15px;
-            border-radius: 6px;
+        .appointment-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: 600;
         }
 
-        .consultation-details {
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-confirmed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-completed {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .appointment-details {
             background: #f9f9f9;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 15px;
         }
 
-        .detail-item {
+        .detail-row {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
@@ -422,7 +645,7 @@
             color: #333;
         }
 
-        /* PRESCRIPTION MODAL */
+        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -434,6 +657,7 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            overflow-y: auto;
         }
 
         .modal.show {
@@ -448,6 +672,7 @@
             max-height: 80vh;
             overflow-y: auto;
             animation: slideUp 0.3s ease;
+            margin: auto;
         }
 
         .modal-header {
@@ -475,124 +700,43 @@
             padding: 20px;
         }
 
-        .drug-item {
-            background: #f0f4ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            gap: 15px;
-        }
-
-        .drug-details {
-            flex: 1;
-        }
-
-        .drug-name {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .drug-info {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .remove-drug-btn {
-            background: #fee;
-            color: #c33;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 12px;
-        }
-
-        .remove-drug-btn:hover {
-            background: #fdd;
-        }
-
-        .prescriptions-grid {
+        .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
 
-        .prescription-card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
+        .quick-action {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             padding: 20px;
-        }
-
-        .prescription-header {
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-        }
-
-        .prescription-patient {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .prescription-date {
-            font-size: 12px;
-            color: #999;
-        }
-
-        .prescription-drugs {
-            margin-bottom: 15px;
-        }
-
-        .drug-pill {
-            background: #e8f0ff;
-            color: #667eea;
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .prescription-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 6px;
+            border-radius: 12px;
+            text-align: center;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 12px;
             transition: all 0.3s;
         }
 
-        .download-btn {
-            background: #667eea;
-            color: white;
+        .quick-action:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
-        .download-btn:hover {
-            background: #5568d3;
+        .quick-action-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
         }
 
-        .share-btn {
-            background: #e0e0e0;
-            color: #333;
+        .quick-action-label {
+            font-weight: 600;
+            font-size: 14px;
         }
 
-        .share-btn:hover {
-            background: #d0d0d0;
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
         }
 
         /* RESPONSIVE */
@@ -616,14 +760,24 @@
             .auth-container {
                 padding: 25px;
             }
-        }
 
-        .section {
-            display: none;
-        }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
 
-        .section.active {
-            display: block;
+            .doctor-card {
+                flex-direction: column;
+            }
+
+            .doctor-actions {
+                flex-direction: row;
+                margin-top: 15px;
+                width: 100%;
+            }
+
+            .doctor-actions .btn {
+                flex: 1;
+            }
         }
     </style>
 </head>
@@ -634,7 +788,7 @@
             <div class="auth-container">
                 <div class="logo-section">
                     <div class="logo-icon">🏥</div>
-                    <h1>TelemediCare</h1>
+                    <h1>PioneerCare</h1>
                     <p>Professional Telemedicine Platform</p>
                 </div>
 
@@ -651,7 +805,7 @@
 
                 <div id="messageBox"></div>
 
-                <!-- PATIENT AUTH -->
+                <!-- PATIENT LOGIN/REGISTER -->
                 <div id="patientAuthForm">
                     <div id="patientLoginForm">
                         <h2>Patient Login</h2>
@@ -667,7 +821,7 @@
                             <button type="button" class="btn btn-primary" onclick="patientLogin()">Login</button>
                         </form>
                         <div class="toggle-auth">
-                            <a onclick="togglePatientAuth()">Register</a> | <a onclick="showForgotPasswordForm('patient')">Forgot Password?</a>
+                            Don't have an account? <a onclick="togglePatientAuth()">Register</a>
                         </div>
                     </div>
 
@@ -687,22 +841,22 @@
                                 <input type="date" id="patientRegDOB" required>
                             </div>
                             <div class="form-group">
-                                <label>Security Question: What is your mother's maiden name?</label>
-                                <input type="text" id="patientRegSecurityAnswer" placeholder="Answer for password recovery" required>
-                            </div>
-                            <div class="form-group">
                                 <label>Password</label>
                                 <input type="password" id="patientRegPassword" placeholder="Create a strong password" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Security Question: What is your mother's maiden name?</label>
+                                <input type="text" id="patientRegSecurityAnswer" placeholder="Answer for account recovery" required>
                             </div>
                             <button type="button" class="btn btn-primary" onclick="patientRegister()">Register</button>
                         </form>
                         <div class="toggle-auth">
-                            <a onclick="togglePatientAuth()">Back to Login</a>
+                            Already have an account? <a onclick="togglePatientAuth()">Login</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- CLINICIAN AUTH -->
+                <!-- CLINICIAN LOGIN/REGISTER -->
                 <div id="clinicianAuthForm" style="display: none;">
                     <div id="clinicianLoginForm">
                         <h2>Clinician Login</h2>
@@ -718,7 +872,7 @@
                             <button type="button" class="btn btn-primary" onclick="clinicianLogin()">Login</button>
                         </form>
                         <div class="toggle-auth">
-                            <a onclick="toggleClinicianAuth()">Register</a> | <a onclick="showForgotPasswordForm('clinician')">Forgot Password?</a>
+                            Don't have an account? <a onclick="toggleClinicianAuth()">Register</a>
                         </div>
                     </div>
 
@@ -756,25 +910,19 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Security Question: What city were you born in?</label>
-                                <input type="text" id="clinicianRegSecurityAnswer" placeholder="Answer for password recovery" required>
-                            </div>
-                            <div class="form-group">
                                 <label>Password</label>
                                 <input type="password" id="clinicianRegPassword" placeholder="Create a strong password" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Security Question: What city were you born in?</label>
+                                <input type="text" id="clinicianRegSecurityAnswer" placeholder="Answer for account recovery" required>
                             </div>
                             <button type="button" class="btn btn-primary" onclick="clinicianRegister()">Register</button>
                         </form>
                         <div class="toggle-auth">
-                            <a onclick="toggleClinicianAuth()">Back to Login</a>
+                            Already have an account? <a onclick="toggleClinicianAuth()">Login</a>
                         </div>
                     </div>
-                </div>
-
-                <!-- FORGOT PASSWORD FORM -->
-                <div id="forgotPasswordForm" style="display: none;">
-                    <h2 id="forgotPasswordTitle">Reset Password</h2>
-                    <div id="forgotPasswordContent"></div>
                 </div>
             </div>
         </div>
@@ -784,7 +932,7 @@
             <div class="dashboard-container">
                 <!-- SIDEBAR -->
                 <div class="sidebar">
-                    <div class="logo">🏥 TelemediCare</div>
+                    <div class="logo">🏥 PioneerCare</div>
                     <div class="user-info">
                         <div class="name" id="userDisplayName">User</div>
                         <div class="role" id="userDisplayRole">Role</div>
@@ -792,10 +940,16 @@
                     </div>
                     <ul class="nav-menu" id="navMenu">
                         <li><a href="#" onclick="showSection('dashboard')" class="nav-link active">📊 Dashboard</a></li>
+                        <li><a href="#" onclick="showSection('find-doctor')" class="nav-link" id="findDoctorNav" style="display: none;">👨‍⚕️ Find Doctor</a></li>
                         <li><a href="#" onclick="showSection('appointments')" class="nav-link">📅 Appointments</a></li>
-                        <li><a href="#" onclick="showSection('consultations')" class="nav-link" id="consultationsNav" style="display: none;">💬 Consultations</a></li>
-                        <li><a href="#" onclick="showSection('prescriptions')" class="nav-link" id="prescriptionsNav" style="display: none;">💊 Prescriptions</a></li>
+                        <li><a href="#" onclick="showSection('messages')" class="nav-link" id="messagesNav" style="display: none;">💬 Messages</a></li>
+                        <li><a href="#" onclick="showSection('prescriptions')" class="nav-link" id="prescriptionsPatientNav" style="display: none;">💊 Prescriptions</a></li>
+                        <li><a href="#" onclick="showSection('consultations')" class="nav-link" id="consultationsNav" style="display: none;">📝 Consultations</a></li>
+                        <li><a href="#" onclick="showSection('my-prescriptions')" class="nav-link" id="clinicianPrescriptionsNav" style="display: none;">💊 My Prescriptions</a></li>
                         <li><a href="#" onclick="showSection('health-records')" class="nav-link" id="healthRecordsNav" style="display: none;">📋 Health Records</a></li>
+                        <li><a href="#" onclick="showSection('vital-signs')" class="nav-link" id="vitalSignsNav" style="display: none;">❤️ Vital Signs</a></li>
+                        <li><a href="#" onclick="showSection('lab-results')" class="nav-link" id="labResultsNav" style="display: none;">🔬 Lab Results</a></li>
+                        <li><a href="#" onclick="showSection('symptom-checker')" class="nav-link" id="symptomCheckerNav" style="display: none;">🩺 Symptom Checker</a></li>
                         <li><a href="#" onclick="showSection('ratings')" class="nav-link" id="ratingsNav" style="display: none;">⭐ Ratings</a></li>
                         <li><a href="#" onclick="showSection('settings')" class="nav-link">⚙️ Settings</a></li>
                     </ul>
@@ -811,15 +965,15 @@
                         </div>
                         <div class="header-stats" id="statsContainer">
                             <div class="stat-card">
-                                <div class="stat-label">Active Appointments</div>
+                                <div class="stat-label">Appointments</div>
                                 <div class="stat-value" id="statAppointments">0</div>
                             </div>
                             <div class="stat-card">
-                                <div class="stat-label">Completed Consultations</div>
+                                <div class="stat-label">Consultations</div>
                                 <div class="stat-value" id="statConsultations">0</div>
                             </div>
                             <div class="stat-card">
-                                <div class="stat-label">Total Prescriptions</div>
+                                <div class="stat-label">Prescriptions</div>
                                 <div class="stat-value" id="statPrescriptions">0</div>
                             </div>
                             <div class="stat-card">
@@ -827,16 +981,67 @@
                                 <div class="stat-value" id="statEarnings">0</div>
                             </div>
                         </div>
-                        <div id="dashboardContent"></div>
+
+                        <!-- PATIENT QUICK ACTIONS -->
+                        <div id="patientQuickActions" style="display: none;">
+                            <h2 style="margin-bottom: 20px; color: #333;">Quick Actions</h2>
+                            <div class="grid-2">
+                                <div class="quick-action" onclick="showSection('find-doctor')">
+                                    <div class="quick-action-icon">👨‍⚕️</div>
+                                    <div class="quick-action-label">Find & Book Doctor</div>
+                                </div>
+                                <div class="quick-action" onclick="showSection('messages')">
+                                    <div class="quick-action-icon">💬</div>
+                                    <div class="quick-action-label">Message Doctor</div>
+                                </div>
+                                <div class="quick-action" onclick="showSection('prescriptions')">
+                                    <div class="quick-action-icon">💊</div>
+                                    <div class="quick-action-label">View Prescriptions</div>
+                                </div>
+                                <div class="quick-action" onclick="showSection('health-records')">
+                                    <div class="quick-action-icon">📋</div>
+                                    <div class="quick-action-label">Health Records</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="dashboardContent" style="margin-top: 30px;"></div>
+                    </div>
+
+                    <!-- FIND DOCTOR SECTION (PATIENT) -->
+                    <div id="find-doctor" class="section">
+                        <div class="header">
+                            <h1>Find & Book Doctor</h1>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <input type="text" id="searchDoctor" placeholder="Search by specialty or name..." onkeyup="searchDoctors()">
+                        </div>
+                        <div id="doctorsContainer"></div>
                     </div>
 
                     <!-- APPOINTMENTS SECTION -->
                     <div id="appointments" class="section">
                         <div class="header">
-                            <h1>Appointments</h1>
-                            <button class="btn btn-primary" style="width: auto;" id="newAppointmentBtn" onclick="showNewAppointmentModal()">+ New Appointment</button>
+                            <h1>My Appointments</h1>
+                            <button class="btn btn-primary" style="width: auto;" id="newAppointmentBtn" onclick="showRequestAppointmentModal()" style="display: none;">+ Request Appointment</button>
                         </div>
                         <div id="appointmentsContainer"></div>
+                    </div>
+
+                    <!-- MESSAGES SECTION (PATIENT) -->
+                    <div id="messages" class="section">
+                        <div class="header">
+                            <h1>Messages & Chat</h1>
+                        </div>
+                        <div id="messagesContainer"></div>
+                    </div>
+
+                    <!-- PRESCRIPTIONS SECTION (PATIENT) -->
+                    <div id="prescriptions" class="section">
+                        <div class="header">
+                            <h1>My Prescriptions</h1>
+                        </div>
+                        <div id="patientPrescriptionsContainer"></div>
                     </div>
 
                     <!-- CONSULTATIONS SECTION (CLINICIAN) -->
@@ -847,21 +1052,47 @@
                         <div id="consultationsContainer"></div>
                     </div>
 
-                    <!-- PRESCRIPTIONS SECTION (CLINICIAN) -->
-                    <div id="prescriptions" class="section">
+                    <!-- MY PRESCRIPTIONS SECTION (CLINICIAN) -->
+                    <div id="my-prescriptions" class="section">
                         <div class="header">
                             <h1>My Prescriptions</h1>
                         </div>
-                        <div class="prescriptions-grid" id="prescriptionsContainer"></div>
+                        <div id="clinicianPrescriptionsContainer"></div>
                     </div>
 
                     <!-- HEALTH RECORDS SECTION (PATIENT) -->
                     <div id="health-records" class="section">
                         <div class="header">
                             <h1>Health Records</h1>
-                            <button class="btn btn-primary" style="width: auto;" onclick="showHealthFormModal()">+ Add Health Record</button>
+                            <button class="btn btn-primary" style="width: auto;" onclick="showHealthFormModal()">+ Add Record</button>
                         </div>
                         <div id="healthRecordsContainer"></div>
+                    </div>
+
+                    <!-- VITAL SIGNS SECTION (PATIENT) -->
+                    <div id="vital-signs" class="section">
+                        <div class="header">
+                            <h1>Vital Signs Tracking</h1>
+                            <button class="btn btn-primary" style="width: auto;" onclick="showVitalSignsModal()">+ Log Vital Signs</button>
+                        </div>
+                        <div id="vitalSignsContainer"></div>
+                    </div>
+
+                    <!-- LAB RESULTS SECTION (PATIENT) -->
+                    <div id="lab-results" class="section">
+                        <div class="header">
+                            <h1>Lab Results & Imaging</h1>
+                            <button class="btn btn-primary" style="width: auto;" onclick="showLabResultsModal()">+ Upload Lab Result</button>
+                        </div>
+                        <div id="labResultsContainer"></div>
+                    </div>
+
+                    <!-- SYMPTOM CHECKER SECTION (PATIENT) -->
+                    <div id="symptom-checker" class="section">
+                        <div class="header">
+                            <h1>Symptom Checker & Pre-Consultation Triage</h1>
+                        </div>
+                        <div id="symptomCheckerContainer"></div>
                     </div>
 
                     <!-- RATINGS SECTION (CLINICIAN) -->
@@ -887,90 +1118,49 @@
     </div>
 
     <!-- MODALS -->
-    <div id="prescriptionModal" class="modal">
+    <div id="bookAppointmentModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Add Prescription for <span id="prescriptionPatientName"></span></h2>
-                <button class="close-btn" onclick="closePrescriptionModal()">&times;</button>
+                <h2>Book Appointment with <span id="bookDoctorName"></span></h2>
+                <button class="close-btn" onclick="closeModal('bookAppointmentModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <div id="prescriptionMessage"></div>
-                
-                <div class="form-group">
-                    <label>Doctor's Notes</label>
-                    <textarea id="doctorNotes" placeholder="Patient diagnosis, observations, and clinical notes..." style="width: 100%; height: 80px; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;"></textarea>
-                </div>
-
-                <h3 style="margin-top: 20px; margin-bottom: 15px;">Add Drugs</h3>
-                
-                <div class="form-group">
-                    <label>Drug Name</label>
-                    <input type="text" id="drugName" placeholder="e.g., Paracetamol, Amoxicillin">
-                </div>
-
-                <div class="form-group">
-                    <label>Dosage</label>
-                    <input type="text" id="drugDosage" placeholder="e.g., 500mg, 2 tablets">
-                </div>
-
-                <div class="form-group">
-                    <label>Frequency</label>
-                    <input type="text" id="drugFrequency" placeholder="e.g., 3 times daily, Once at night">
-                </div>
-
-                <div class="form-group">
-                    <label>Duration</label>
-                    <input type="text" id="drugDuration" placeholder="e.g., 7 days, 2 weeks">
-                </div>
-
-                <div class="form-group">
-                    <label>Special Instructions</label>
-                    <input type="text" id="drugInstructions" placeholder="e.g., Take with food, Avoid dairy">
-                </div>
-
-                <button class="btn btn-secondary" onclick="addDrugToPrescription()" style="width: auto; margin-bottom: 20px;">+ Add Drug</button>
-
-                <div id="drugsListContainer">
-                    <h3 style="margin-bottom: 15px;">Prescribed Drugs</h3>
-                    <div id="drugsList"></div>
-                </div>
-
-                <button class="btn btn-primary" onclick="submitPrescription()" style="margin-top: 20px;">Complete & Save Prescription</button>
+                <div id="bookingMessage"></div>
+                <form>
+                    <div class="form-group">
+                        <label>Appointment Date & Time</label>
+                        <input type="datetime-local" id="appointmentDatetime" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Chief Complaint / Reason</label>
+                        <textarea id="appointmentReason" placeholder="Describe your health concern" required style="height: 80px;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Contact Method</label>
+                        <select id="appointmentMethod" required>
+                            <option value="video">Video Call</option>
+                            <option value="phone">Phone Call</option>
+                            <option value="chat">Chat/Messaging</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="submitAppointmentRequest()">Request Appointment</button>
+                </form>
             </div>
         </div>
     </div>
 
-    <div id="newAppointmentModal" class="modal">
+    <div id="messageModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Schedule New Appointment</h2>
-                <button class="close-btn" onclick="closeModal('newAppointmentModal')">&times;</button>
+                <h2>Chat with <span id="messageDoctoName"></span></h2>
+                <button class="close-btn" onclick="closeModal('messageModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <div id="appointmentMessage"></div>
-                <form>
-                    <div class="form-group">
-                        <label>Patient Name</label>
-                        <input type="text" id="patientName" placeholder="Enter patient name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Patient Phone</label>
-                        <input type="tel" id="patientPhone" placeholder="+254..." required>
-                    </div>
-                    <div class="form-group">
-                        <label>Chief Complaint</label>
-                        <textarea id="chiefComplaint" placeholder="Describe patient's concern" style="width: 100%; height: 80px; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px;"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Appointment Date & Time</label>
-                        <input type="datetime-local" id="appointmentDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Consultation Fee (KES)</label>
-                        <input type="number" id="consultationFee" placeholder="e.g., 500" value="500" required>
-                    </div>
-                    <button type="button" class="btn btn-primary" onclick="createAppointment()">Schedule Appointment</button>
-                </form>
+                <div id="messagesThread" style="height: 300px; overflow-y: auto; background: #f9f9f9; border-radius: 8px; padding: 15px; margin-bottom: 15px;"></div>
+                <div class="message-input-area">
+                    <textarea id="newMessage" placeholder="Type your message..." style="height: 80px;"></textarea>
+                    <button class="btn btn-primary btn-small" onclick="sendMessage()" style="height: 80px; width: auto;">Send</button>
+                </div>
             </div>
         </div>
     </div>
@@ -986,17 +1176,176 @@
                 <form>
                     <div class="form-group">
                         <label>Medical Conditions</label>
-                        <textarea id="medicalConditions" placeholder="Any chronic conditions or past illnesses" style="width: 100%; height: 60px; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px;"></textarea>
+                        <textarea id="medicalConditions" placeholder="Any chronic conditions or past illnesses" style="height: 60px;"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Current Medications</label>
-                        <textarea id="currentMeds" placeholder="List any medications you're currently taking" style="width: 100%; height: 60px; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px;"></textarea>
+                        <textarea id="currentMeds" placeholder="List any medications you're currently taking" style="height: 60px;"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Allergies</label>
-                        <textarea id="allergies" placeholder="Any known drug or food allergies" style="width: 100%; height: 60px; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px;"></textarea>
+                        <textarea id="allergies" placeholder="Any known drug or food allergies" style="height: 60px;"></textarea>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="submitHealthForm()">Save Health Record</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="prescriptionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Prescription for <span id="prescriptionPatientName"></span></h2>
+                <button class="close-btn" onclick="closePrescriptionModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="prescriptionMessage"></div>
+
+                <!-- ALLERGY WARNING SECTION -->
+                <div id="allergyWarning" style="display: none; background: #fee; border: 2px solid #f00; border-radius: 8px; padding: 15px; margin-bottom: 20px; color: #c33; font-weight: 600;">
+                    ⚠️ ALLERGY ALERT: Patient has documented allergies. Please review before prescribing.
+                </div>
+                <div id="patientAllergies" style="display: none; background: #f0f4ff; border: 2px solid #667eea; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                    <strong style="color: #667eea;">Patient Allergies:</strong>
+                    <p id="allergyList" style="color: #666; margin-top: 5px; font-size: 13px;"></p>
+                </div>
+
+                <div class="form-group">
+                    <label>Doctor's Notes</label>
+                    <textarea id="doctorNotes" placeholder="Patient diagnosis, observations, and clinical notes..." style="height: 80px;"></textarea>
+                </div>
+
+                <h3 style="margin-top: 20px; margin-bottom: 15px;">Add Drugs</h3>
+
+                <div class="form-group">
+                    <label>Drug Name</label>
+                    <input type="text" id="drugName" placeholder="e.g., Paracetamol, Amoxicillin">
+                </div>
+
+                <div class="form-group">
+                    <label>Dosage</label>
+                    <input type="text" id="drugDosage" placeholder="e.g., 500mg, 2 tablets">
+                </div>
+
+                <div class="form-group">
+                    <label>Frequency</label>
+                    <input type="text" id="drugFrequency" placeholder="e.g., 3 times daily">
+                </div>
+
+                <div class="form-group">
+                    <label>Duration</label>
+                    <input type="text" id="drugDuration" placeholder="e.g., 7 days, 2 weeks">
+                </div>
+
+                <div class="form-group">
+                    <label>Special Instructions</label>
+                    <input type="text" id="drugInstructions" placeholder="e.g., Take with food">
+                </div>
+
+                <button class="btn btn-secondary" onclick="addDrugToPrescription()" style="width: auto; margin-bottom: 20px;">+ Add Drug</button>
+
+                <div id="drugsListContainer" style="display: none;">
+                    <h3 style="margin-bottom: 15px;">Prescribed Drugs</h3>
+                    <div id="drugsList"></div>
+                </div>
+
+                <button class="btn btn-primary" onclick="submitPrescription()" style="margin-top: 20px;">Complete & Save Prescription</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VITAL SIGNS MODAL -->
+    <div id="vitalSignsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Log Vital Signs</h2>
+                <button class="close-btn" onclick="closeModal('vitalSignsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="vitalSignsMessage"></div>
+                <form>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Systolic BP (mmHg)</label>
+                            <input type="number" id="bpSystolic" placeholder="120" min="0" max="300">
+                        </div>
+                        <div class="form-group">
+                            <label>Diastolic BP (mmHg)</label>
+                            <input type="number" id="bpDiastolic" placeholder="80" min="0" max="200">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Heart Rate (bpm)</label>
+                            <input type="number" id="heartRate" placeholder="72" min="30" max="200">
+                        </div>
+                        <div class="form-group">
+                            <label>Temperature (°C)</label>
+                            <input type="number" id="temperature" placeholder="37" min="35" max="42" step="0.1">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Weight (kg)</label>
+                            <input type="number" id="weight" placeholder="70" min="10" max="300" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Blood Sugar (mg/dL)</label>
+                            <input type="number" id="bloodSugar" placeholder="100" min="40" max="600">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea id="vitalSignsNotes" placeholder="Any observations or concerns" style="height: 60px;"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="submitVitalSigns()">Save Vital Signs</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- LAB RESULTS MODAL -->
+    <div id="labResultsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Upload Lab Result</h2>
+                <button class="close-btn" onclick="closeModal('labResultsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="labResultsMessage"></div>
+                <form>
+                    <div class="form-group">
+                        <label>Test Type</label>
+                        <select id="labTestType" required>
+                            <option value="">Select Test Type</option>
+                            <option value="Blood Test">Blood Test</option>
+                            <option value="Urine Test">Urine Test</option>
+                            <option value="X-Ray">X-Ray</option>
+                            <option value="Ultrasound">Ultrasound</option>
+                            <option value="ECG">ECG</option>
+                            <option value="CT Scan">CT Scan</option>
+                            <option value="COVID-19 Test">COVID-19 Test</option>
+                            <option value="Malaria Test">Malaria Test</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Test Date</label>
+                        <input type="date" id="labTestDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description/Summary</label>
+                        <textarea id="labDescription" placeholder="Test results summary, key findings..." style="height: 80px;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Reference Values/Normal Range</label>
+                        <textarea id="labReferenceValues" placeholder="What the normal values are for this test" style="height: 60px;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Performing Lab/Facility</label>
+                        <input type="text" id="labFacility" placeholder="Hospital or lab name">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="submitLabResult()">Save Lab Result</button>
                 </form>
             </div>
         </div>
@@ -1015,7 +1364,14 @@
         let prescriptions = JSON.parse(localStorage.getItem('telecare_prescriptions') || '[]');
         let healthRecords = JSON.parse(localStorage.getItem('telecare_healthRecords') || '[]');
         let ratings = JSON.parse(localStorage.getItem('telecare_ratings') || '[]');
+        let messages = JSON.parse(localStorage.getItem('telecare_messages') || '[]');
+        let vitalSigns = JSON.parse(localStorage.getItem('telecare_vitalSigns') || '[]');
+        let labResults = JSON.parse(localStorage.getItem('telecare_labResults') || '[]');
+        let symptomAssessments = JSON.parse(localStorage.getItem('telecare_symptomAssessments') || '[]');
         let currentPrescriptionDrugs = [];
+        let currentBookingDoctor = null;
+        let currentMessageDoctor = null;
+        let currentPrescriptionPatientId = null;
 
         // =======================
         // AUTHENTICATION
@@ -1027,28 +1383,24 @@
                 const role = this.dataset.role;
                 document.getElementById('patientAuthForm').style.display = role === 'patient' ? 'block' : 'none';
                 document.getElementById('clinicianAuthForm').style.display = role === 'clinician' ? 'block' : 'none';
-                document.getElementById('forgotPasswordForm').style.display = 'none';
                 document.getElementById('messageBox').innerHTML = '';
             });
         });
 
         function togglePatientAuth() {
-            document.getElementById('patientLoginForm').style.display = 
+            document.getElementById('patientLoginForm').style.display =
                 document.getElementById('patientLoginForm').style.display === 'none' ? 'block' : 'none';
-            document.getElementById('patientRegisterForm').style.display = 
+            document.getElementById('patientRegisterForm').style.display =
                 document.getElementById('patientRegisterForm').style.display === 'none' ? 'block' : 'none';
-            document.getElementById('forgotPasswordForm').style.display = 'none';
         }
 
         function toggleClinicianAuth() {
-            document.getElementById('clinicianLoginForm').style.display = 
+            document.getElementById('clinicianLoginForm').style.display =
                 document.getElementById('clinicianLoginForm').style.display === 'none' ? 'block' : 'none';
-            document.getElementById('clinicianRegisterForm').style.display = 
+            document.getElementById('clinicianRegisterForm').style.display =
                 document.getElementById('clinicianRegisterForm').style.display === 'none' ? 'block' : 'none';
-            document.getElementById('forgotPasswordForm').style.display = 'none';
         }
 
-        // Simple password hashing for localStorage
         function hashPassword(password) {
             let hash = 0;
             for (let i = 0; i < password.length; i++) {
@@ -1059,143 +1411,14 @@
             return 'hash_' + Math.abs(hash).toString(16);
         }
 
-        // =======================
-        // FORGOT PASSWORD
-        // =======================
-        function showForgotPasswordForm(role) {
-            document.getElementById('patientLoginForm').style.display = 'none';
-            document.getElementById('patientRegisterForm').style.display = 'none';
-            document.getElementById('clinicianLoginForm').style.display = 'none';
-            document.getElementById('clinicianRegisterForm').style.display = 'none';
-            document.getElementById('forgotPasswordForm').style.display = 'block';
-            
-            let html = '';
-            if (role === 'patient') {
-                html = `
-                    <form>
-                        <div class="form-group">
-                            <label>Phone Number (Associated with Account)</label>
-                            <input type="tel" id="resetPatientPhone" placeholder="+254..." required>
-                        </div>
-                        <div class="form-group">
-                            <label>What is your mother's maiden name?</label>
-                            <input type="text" id="resetPatientSecurityAnswer" placeholder="Security answer" required>
-                        </div>
-                        <div class="form-group">
-                            <label>New Password</label>
-                            <input type="password" id="resetPatientNewPassword" placeholder="Enter new password" required>
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="resetPatientPassword()">Reset Password</button>
-                    </form>
-                    <div class="toggle-auth" style="margin-top: 20px;">
-                        <a onclick="togglePatientAuth()">Back to Login</a>
-                    </div>
-                `;
-            } else {
-                html = `
-                    <form>
-                        <div class="form-group">
-                            <label>License Number or Email</label>
-                            <input type="text" id="resetClinicianId" placeholder="License or email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>What city were you born in?</label>
-                            <input type="text" id="resetClinicianSecurityAnswer" placeholder="Security answer" required>
-                        </div>
-                        <div class="form-group">
-                            <label>New Password</label>
-                            <input type="password" id="resetClinicianNewPassword" placeholder="Enter new password" required>
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="resetClinicianPassword()">Reset Password</button>
-                    </form>
-                    <div class="toggle-auth" style="margin-top: 20px;">
-                        <a onclick="toggleClinicianAuth()">Back to Login</a>
-                    </div>
-                `;
-            }
-            
-            document.getElementById('forgotPasswordContent').innerHTML = html;
-        }
-
-        function resetPatientPassword() {
-            const phone = document.getElementById('resetPatientPhone').value;
-            const securityAnswer = document.getElementById('resetPatientSecurityAnswer').value.toLowerCase();
-            const newPassword = document.getElementById('resetPatientNewPassword').value;
-
-            const patient = patients.find(p => p.phone === phone);
-
-            if (!patient) {
-                alert('❌ Patient account not found with this phone number');
-                return;
-            }
-
-            if (patient.securityAnswer.toLowerCase() !== securityAnswer) {
-                alert('❌ Security answer is incorrect');
-                return;
-            }
-
-            if (newPassword.length < 6) {
-                alert('❌ Password must be at least 6 characters');
-                return;
-            }
-
-            // Update password
-            patient.passwordHash = hashPassword(newPassword);
-            patients = patients.map(p => p.id === patient.id ? patient : p);
-            localStorage.setItem('telecare_patients', JSON.stringify(patients));
-
-            alert('✅ Password has been reset successfully! Please login with your new password.');
-            document.getElementById('resetPatientPhone').value = '';
-            document.getElementById('resetPatientSecurityAnswer').value = '';
-            document.getElementById('resetPatientNewPassword').value = '';
-            togglePatientAuth();
-        }
-
-        function resetClinicianPassword() {
-            const loginId = document.getElementById('resetClinicianId').value;
-            const securityAnswer = document.getElementById('resetClinicianSecurityAnswer').value.toLowerCase();
-            const newPassword = document.getElementById('resetClinicianNewPassword').value;
-
-            const clinician = clinicians.find(c => (c.license === loginId || c.email === loginId));
-
-            if (!clinician) {
-                alert('❌ Clinician account not found');
-                return;
-            }
-
-            if (clinician.securityAnswer.toLowerCase() !== securityAnswer) {
-                alert('❌ Security answer is incorrect');
-                return;
-            }
-
-            if (newPassword.length < 6) {
-                alert('❌ Password must be at least 6 characters');
-                return;
-            }
-
-            // Update password
-            clinician.passwordHash = hashPassword(newPassword);
-            clinicians = clinicians.map(c => c.id === clinician.id ? clinician : c);
-            localStorage.setItem('telecare_clinicians', JSON.stringify(clinicians));
-
-            alert('✅ Password has been reset successfully! Please login with your new password.');
-            document.getElementById('resetClinicianId').value = '';
-            document.getElementById('resetClinicianSecurityAnswer').value = '';
-            document.getElementById('resetClinicianNewPassword').value = '';
-            toggleClinicianAuth();
-        }
-
-        // =======================
-        // PATIENT FUNCTIONS
-        // =======================
         function patientRegister() {
             const name = document.getElementById('patientRegName').value;
             const phone = document.getElementById('patientRegPhone').value;
             const dob = document.getElementById('patientRegDOB').value;
-            const securityAnswer = document.getElementById('patientRegSecurityAnswer').value;
             const password = document.getElementById('patientRegPassword').value;
+            const securityAnswer = document.getElementById('patientRegSecurityAnswer').value;
 
-            if (!name || !phone || !dob || !securityAnswer || !password) {
+            if (!name || !phone || !dob || !password || !securityAnswer) {
                 showMessage('messageBox', 'Please fill all fields', 'error');
                 return;
             }
@@ -1210,8 +1433,8 @@
                 name,
                 phone,
                 dob,
-                securityAnswer,
                 passwordHash: hashPassword(password),
+                securityAnswer: securityAnswer.toLowerCase(),
                 createdAt: new Date().toISOString()
             };
 
@@ -1239,19 +1462,16 @@
             showDashboard();
         }
 
-        // =======================
-        // CLINICIAN FUNCTIONS
-        // =======================
         function clinicianRegister() {
             const name = document.getElementById('clinicianRegName').value;
             const license = document.getElementById('clinicianRegLicense').value;
             const email = document.getElementById('clinicianRegEmail').value;
             const phone = document.getElementById('clinicianRegPhone').value;
             const specialty = document.getElementById('clinicianRegSpecialty').value;
-            const securityAnswer = document.getElementById('clinicianRegSecurityAnswer').value;
             const password = document.getElementById('clinicianRegPassword').value;
+            const securityAnswer = document.getElementById('clinicianRegSecurityAnswer').value;
 
-            if (!name || !license || !email || !phone || !specialty || !securityAnswer || !password) {
+            if (!name || !license || !email || !phone || !specialty || !password || !securityAnswer) {
                 showMessage('messageBox', 'Please fill all fields', 'error');
                 return;
             }
@@ -1268,8 +1488,8 @@
                 email,
                 phone,
                 specialty,
-                securityAnswer,
                 passwordHash: hashPassword(password),
+                securityAnswer: securityAnswer.toLowerCase(),
                 earnings: 0,
                 consultations: 0,
                 avgRating: 0,
@@ -1288,7 +1508,7 @@
             const password = document.getElementById('clinicianLoginPassword').value;
             const passwordHash = hashPassword(password);
 
-            const clinician = clinicians.find(c => 
+            const clinician = clinicians.find(c =>
                 (c.license === loginId || c.email === loginId) && c.passwordHash === passwordHash
             );
 
@@ -1317,7 +1537,6 @@
                 document.getElementById('patientRegisterForm').style.display = 'none';
                 document.getElementById('clinicianLoginForm').style.display = 'block';
                 document.getElementById('clinicianRegisterForm').style.display = 'none';
-                document.getElementById('forgotPasswordForm').style.display = 'none';
                 document.getElementById('messageBox').innerHTML = '';
             }
         }
@@ -1338,16 +1557,24 @@
             if (!currentUser) return;
             document.getElementById('userDisplayName').textContent = currentUser.name;
             document.getElementById('userDisplayRole').textContent = currentRole === 'patient' ? 'Patient' : 'Clinician';
-            document.getElementById('userDisplayId').textContent = currentRole === 'patient' ? 
+            document.getElementById('userDisplayId').textContent = currentRole === 'patient' ?
                 `Phone: ${currentUser.phone}` : `License: ${currentUser.license}`;
         }
 
         function updateNavigationMenu() {
-            document.getElementById('consultationsNav').style.display = currentRole === 'clinician' ? 'block' : 'none';
-            document.getElementById('prescriptionsNav').style.display = currentRole === 'clinician' ? 'block' : 'none';
-            document.getElementById('healthRecordsNav').style.display = currentRole === 'patient' ? 'block' : 'none';
-            document.getElementById('ratingsNav').style.display = currentRole === 'clinician' ? 'block' : 'none';
-            document.getElementById('newAppointmentBtn').style.display = currentRole === 'patient' ? 'none' : 'block';
+            const isPatient = currentRole === 'patient';
+            const isClinician = currentRole === 'clinician';
+
+            document.getElementById('findDoctorNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('messagesNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('prescriptionsPatientNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('vitalSignsNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('labResultsNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('symptomCheckerNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('consultationsNav').style.display = isClinician ? 'block' : 'none';
+            document.getElementById('clinicianPrescriptionsNav').style.display = isClinician ? 'block' : 'none';
+            document.getElementById('healthRecordsNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('ratingsNav').style.display = isClinician ? 'block' : 'none';
         }
 
         function showSection(sectionId) {
@@ -1356,9 +1583,15 @@
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
 
-            if (sectionId === 'consultations') loadConsultations();
-            else if (sectionId === 'prescriptions') loadPrescriptions();
+            if (sectionId === 'find-doctor') loadDoctorDirectory();
             else if (sectionId === 'appointments') loadAppointments();
+            else if (sectionId === 'messages') loadPatientMessages();
+            else if (sectionId === 'prescriptions') loadPatientPrescriptions();
+            else if (sectionId === 'vital-signs') loadVitalSigns();
+            else if (sectionId === 'lab-results') loadLabResults();
+            else if (sectionId === 'symptom-checker') loadSymptomChecker();
+            else if (sectionId === 'consultations') loadConsultations();
+            else if (sectionId === 'my-prescriptions') loadClinicianPrescriptions();
             else if (sectionId === 'health-records') loadHealthRecords();
             else if (sectionId === 'ratings') loadRatings();
             else if (sectionId === 'settings') loadSettings();
@@ -1376,50 +1609,63 @@
         }
 
         function loadPatientDashboard() {
-            const userAppointments = appointments.filter(a => a.patientPhone === currentUser.phone);
-            const userPrescriptions = prescriptions.filter(p => p.patientPhone === currentUser.phone);
-            const userConsultations = consultations.filter(c => c.patientPhone === currentUser.phone);
+            document.getElementById('patientQuickActions').style.display = 'block';
+
+            const userAppointments = appointments.filter(a => a.patientId === currentUser.id);
+            const userPrescriptions = prescriptions.filter(p => p.patientId === currentUser.id);
+            const userConsultations = consultations.filter(c => c.patientId === currentUser.id);
 
             document.getElementById('statAppointments').textContent = userAppointments.filter(a => a.status === 'pending' || a.status === 'confirmed').length;
             document.getElementById('statConsultations').textContent = userConsultations.length;
             document.getElementById('statPrescriptions').textContent = userPrescriptions.length;
-            
-            const totalSpent = userAppointments.reduce((sum, a) => sum + (a.fee || 0), 0);
-            document.getElementById('statEarnings').textContent = totalSpent.toLocaleString();
+            document.getElementById('statEarnings').textContent = '0';
 
-            let content = '<h2 style="color: #666; margin-bottom: 20px;">Upcoming Appointments</h2>';
+            let content = '<h2 style="color: #666; margin-bottom: 20px; margin-top: 30px;">Recent Activity</h2>';
+
             if (userAppointments.length === 0) {
-                content += '<p style="color: #999;">No appointments scheduled yet</p>';
+                content += '<p style="color: #999;">No appointments yet. <a href="#" onclick="showSection(\'find-doctor\')" style="color: #667eea; font-weight: 600;">Find a doctor</a></p>';
             } else {
-                userAppointments.slice(0, 3).forEach(apt => {
-                    content += `
-                        <div class="consultation-request">
-                            <div class="patient-info">
-                                <div class="patient-details">
-                                    <div class="patient-name">Appointment Scheduled</div>
-                                    <div class="patient-phone">Scheduled: ${new Date(apt.appointmentDate).toLocaleString()}</div>
+                const upcoming = userAppointments.filter(a => a.status === 'pending' || a.status === 'confirmed');
+                if (upcoming.length > 0) {
+                    content += '<h3 style="margin-bottom: 15px; color: #333;">Upcoming Appointments</h3>';
+                    upcoming.slice(0, 3).forEach(apt => {
+                        const doctor = clinicians.find(c => c.id === apt.clinicianId);
+                        content += `
+                            <div class="appointment-card">
+                                <div class="appointment-header">
+                                    <div>
+                                        <div class="appointment-doctor">${doctor ? doctor.name : 'Doctor'} - ${doctor ? doctor.specialty : ''}</div>
+                                        <div style="font-size: 12px; color: #666;">${new Date(apt.appointmentDate).toLocaleString()}</div>
+                                    </div>
+                                    <div class="appointment-status ${apt.status === 'pending' ? 'status-pending' : 'status-confirmed'}">${apt.status.toUpperCase()}</div>
                                 </div>
-                                <div class="consultation-fee">KES ${apt.fee}</div>
+                                <div class="appointment-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Reason:</span>
+                                        <span class="detail-value">${apt.reason}</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Contact Method:</span>
+                                        <span class="detail-value">${apt.method}</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Consultation Fee:</span>
+                                        <span class="detail-value">KES 500</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="consultation-details">
-                                <div class="detail-item">
-                                    <span class="detail-label">Chief Complaint:</span>
-                                    <span class="detail-value">${apt.chiefComplaint}</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Status:</span>
-                                    <span class="detail-value" style="text-transform: uppercase; color: #667eea;">${apt.status}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
+                        `;
+                    });
+                }
             }
+
             document.getElementById('dashboardContent').innerHTML = content;
         }
 
         function loadClinicianDashboard() {
-            const clinicianAppointments = appointments.filter(a => !a.clinicianId || a.clinicianId === currentUser.id);
+            document.getElementById('patientQuickActions').style.display = 'none';
+
+            const clinicianAppointments = appointments.filter(a => a.clinicianId === currentUser.id);
             const clinicianConsultations = consultations.filter(c => c.clinicianId === currentUser.id);
             const clinicianPrescriptions = prescriptions.filter(p => p.clinicianId === currentUser.id);
 
@@ -1428,32 +1674,32 @@
             document.getElementById('statPrescriptions').textContent = clinicianPrescriptions.length;
             document.getElementById('statEarnings').textContent = currentUser.earnings.toLocaleString();
 
-            let content = '<h2 style="color: #666; margin-bottom: 20px;">Pending Consultations</h2>';
+            let content = '<h2 style="color: #666; margin-bottom: 20px; margin-top: 30px;">Pending Appointments</h2>';
             const pending = clinicianAppointments.filter(a => a.status === 'pending');
             if (pending.length === 0) {
-                content += '<p style="color: #999;">No pending consultations</p>';
+                content += '<p style="color: #999;">No pending appointments</p>';
             } else {
                 pending.slice(0, 3).forEach(apt => {
                     content += `
-                        <div class="consultation-request">
-                            <div class="patient-info">
-                                <div class="patient-details">
-                                    <div class="patient-name">${apt.patientName}</div>
-                                    <div class="patient-phone">${apt.patientPhone}</div>
+                        <div class="appointment-card">
+                            <div class="appointment-header">
+                                <div>
+                                    <div class="appointment-doctor">${apt.patientName}</div>
+                                    <div style="font-size: 12px; color: #666;">${apt.patientPhone}</div>
                                 </div>
-                                <div class="consultation-fee">KES ${apt.fee}</div>
+                                <div class="appointment-status status-pending">PENDING</div>
                             </div>
-                            <div class="consultation-details">
-                                <div class="detail-item">
-                                    <span class="detail-label">Chief Complaint:</span>
-                                    <span class="detail-value">${apt.chiefComplaint}</span>
+                            <div class="appointment-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Reason:</span>
+                                    <span class="detail-value">${apt.reason}</span>
                                 </div>
-                                <div class="detail-item">
+                                <div class="detail-row">
                                     <span class="detail-label">Scheduled:</span>
                                     <span class="detail-value">${new Date(apt.appointmentDate).toLocaleString()}</span>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" style="width: auto; margin-top: 10px;" onclick="startConsultation(${apt.id})">Start Consultation</button>
+                            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="acceptAppointment(${apt.id})">Accept & Confirm</button>
                         </div>
                     `;
                 });
@@ -1462,38 +1708,429 @@
         }
 
         // =======================
-        // CONSULTATIONS
+        // PATIENT - FIND DOCTOR
+        // =======================
+        function loadDoctorDirectory() {
+            let html = '';
+            const query = document.getElementById('searchDoctor') ? document.getElementById('searchDoctor').value.toLowerCase() : '';
+
+            let filtered = clinicians.filter(doc =>
+                doc.name.toLowerCase().includes(query) ||
+                doc.specialty.toLowerCase().includes(query)
+            );
+
+            if (filtered.length === 0) {
+                html = '<p style="color: #999; padding: 30px; text-align: center;">No doctors found. Try a different search.</p>';
+            } else {
+                filtered.forEach(doctor => {
+                    const avgRating = doctor.totalRatings > 0 ? (doctor.avgRating / doctor.totalRatings).toFixed(1) : 'New';
+                    html += `
+                        <div class="doctor-card">
+                            <div class="doctor-info">
+                                <div class="doctor-name">${doctor.name}</div>
+                                <div class="doctor-specialty">${doctor.specialty}</div>
+                                <div class="doctor-rating">⭐ ${avgRating} ${doctor.totalRatings > 0 ? `(${doctor.totalRatings} reviews)` : '(New)'}</div>
+                                <div class="doctor-contact">
+                                    📞 ${doctor.phone} | 📧 ${doctor.email}
+                                </div>
+                            </div>
+                            <div class="doctor-actions">
+                                <button class="btn btn-primary btn-small" onclick="showBookAppointmentModal(${doctor.id})">📅 Book Appointment</button>
+                                <button class="btn btn-secondary btn-small" onclick="showMessageDoctorModal(${doctor.id})">💬 Message</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('doctorsContainer').innerHTML = html;
+        }
+
+        function searchDoctors() {
+            loadDoctorDirectory();
+        }
+
+        // =======================
+        // PATIENT - BOOK APPOINTMENT
+        // =======================
+        function showBookAppointmentModal(doctorId) {
+            const doctor = clinicians.find(d => d.id === doctorId);
+            if (!doctor) return;
+
+            currentBookingDoctor = doctor;
+            document.getElementById('bookDoctorName').textContent = doctor.name;
+            document.getElementById('appointmentDatetime').value = '';
+            document.getElementById('appointmentReason').value = '';
+            document.getElementById('appointmentMethod').value = 'video';
+            document.getElementById('bookingMessage').innerHTML = '';
+            document.getElementById('bookAppointmentModal').classList.add('show');
+
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('appointmentDatetime').min = now.toISOString().slice(0, 16);
+        }
+
+        function submitAppointmentRequest() {
+            const datetime = document.getElementById('appointmentDatetime').value;
+            const reason = document.getElementById('appointmentReason').value;
+            const method = document.getElementById('appointmentMethod').value;
+
+            if (!datetime || !reason) {
+                document.getElementById('bookingMessage').innerHTML = '<div class="error-message">Please fill all fields</div>';
+                return;
+            }
+
+            const appointment = {
+                id: Date.now(),
+                patientId: currentUser.id,
+                patientName: currentUser.name,
+                patientPhone: currentUser.phone,
+                clinicianId: currentBookingDoctor.id,
+                appointmentDate: datetime,
+                reason,
+                method,
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+
+            appointments.push(appointment);
+            localStorage.setItem('telecare_appointments', JSON.stringify(appointments));
+
+            document.getElementById('bookingMessage').innerHTML = '<div class="success-message">✓ Appointment request sent! Doctor will confirm shortly.</div>';
+            setTimeout(() => {
+                closeModal('bookAppointmentModal');
+                showSection('appointments');
+                loadAppointments();
+            }, 1500);
+        }
+
+        // =======================
+        // APPOINTMENTS
+        // =======================
+        function loadAppointments() {
+            let html = '';
+            const userAppointments = currentRole === 'patient' ?
+                appointments.filter(a => a.patientId === currentUser.id) :
+                appointments.filter(a => a.clinicianId === currentUser.id);
+
+            if (userAppointments.length === 0) {
+                html = '<p style="color: #999; padding: 30px; text-align: center;">No appointments yet</p>';
+            } else {
+                userAppointments.forEach(apt => {
+                    const doctor = clinicians.find(c => c.id === apt.clinicianId);
+                    const doctorName = doctor ? `${doctor.name} (${doctor.specialty})` : 'Doctor';
+
+                    html += `
+                        <div class="appointment-card">
+                            <div class="appointment-header">
+                                <div>
+                                    <div class="appointment-doctor">${currentRole === 'patient' ? doctorName : apt.patientName}</div>
+                                    <div style="font-size: 12px; color: #666;">${new Date(apt.appointmentDate).toLocaleString()}</div>
+                                </div>
+                                <div class="appointment-status ${apt.status === 'pending' ? 'status-pending' : apt.status === 'confirmed' ? 'status-confirmed' : 'status-completed'}">${apt.status.toUpperCase()}</div>
+                            </div>
+                            <div class="appointment-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Reason/Complaint:</span>
+                                    <span class="detail-value">${apt.reason}</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Contact Method:</span>
+                                    <span class="detail-value">${apt.method}</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Fee:</span>
+                                    <span class="detail-value">KES 500</span>
+                                </div>
+                            </div>
+                            ${currentRole === 'clinician' && apt.status === 'pending' ? `
+                                <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="acceptAppointment(${apt.id})">✓ Accept & Confirm</button>
+                            ` : ''}
+                            ${apt.status === 'confirmed' ? `
+                                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                    <button class="btn btn-primary btn-small" style="flex: 1;" onclick="startConsultation(${apt.id})">Start Consultation</button>
+                                    <button class="btn btn-secondary btn-small" style="flex: 1;" onclick="showMessageDoctorModal(${apt.clinicianId})">Message</button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('appointmentsContainer').innerHTML = html;
+        }
+
+        function acceptAppointment(appointmentId) {
+            const appointment = appointments.find(a => a.id === appointmentId);
+            if (!appointment) return;
+
+            appointment.status = 'confirmed';
+            localStorage.setItem('telecare_appointments', JSON.stringify(appointments));
+
+            // Create consultation record
+            const consultation = {
+                id: Date.now(),
+                appointmentId,
+                clinicianId: currentUser.id,
+                patientId: appointment.patientId,
+                patientPhone: appointment.patientPhone,
+                patientName: appointment.patientName,
+                fee: 500,
+                date: new Date().toISOString(),
+                completed: false
+            };
+
+            consultations.push(consultation);
+            localStorage.setItem('telecare_consultations', JSON.stringify(consultations));
+
+            loadAppointments();
+            alert('Appointment confirmed! Patient will be notified.');
+        }
+
+        function startConsultation(appointmentId) {
+            alert('🎥 Starting video consultation... In a production app, this would connect to your video provider.');
+        }
+
+        // =======================
+        // PATIENT - MESSAGES
+        // =======================
+        function loadPatientMessages() {
+            let html = '';
+            const userAppointments = appointments.filter(a => a.patientId === currentUser.id && a.status === 'confirmed');
+
+            if (userAppointments.length === 0) {
+                html = '<p style="color: #999; padding: 30px; text-align: center;">No confirmed appointments. Book an appointment to start messaging.</p>';
+            } else {
+                userAppointments.forEach(apt => {
+                    const doctor = clinicians.find(c => c.id === apt.clinicianId);
+                    html += `
+                        <div class="message-card" style="cursor: pointer;" onclick="showMessageDoctorModal(${apt.clinicianId})">
+                            <div class="message-header">
+                                <div class="message-sender">${doctor ? doctor.name : 'Doctor'}</div>
+                                <div class="message-time">${doctor ? doctor.specialty : ''}</div>
+                            </div>
+                            <div class="message-content" style="color: #667eea; font-weight: 500;">
+                                💬 Click to message
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('messagesContainer').innerHTML = html;
+        }
+
+        function showMessageDoctorModal(doctorId) {
+            const doctor = clinicians.find(d => d.id === doctorId);
+            if (!doctor) return;
+
+            currentMessageDoctor = doctor;
+            document.getElementById('messageDoctoName').textContent = doctor.name;
+            document.getElementById('messagesThread').innerHTML = '<p style="color: #999; text-align: center; padding: 20px;">No messages yet. Start a conversation!</p>';
+            document.getElementById('newMessage').value = '';
+            document.getElementById('messageModal').classList.add('show');
+        }
+
+        function sendMessage() {
+            const content = document.getElementById('newMessage').value;
+            if (!content) return;
+
+            const message = {
+                id: Date.now(),
+                from: currentRole === 'patient' ? currentUser.id : currentMessageDoctor.id,
+                fromName: currentRole === 'patient' ? currentUser.name : currentMessageDoctor.name,
+                fromRole: currentRole,
+                to: currentMessageDoctor.id,
+                toRole: 'clinician',
+                content,
+                timestamp: new Date().toISOString()
+            };
+
+            messages.push(message);
+            localStorage.setItem('telecare_messages', JSON.stringify(messages));
+
+            document.getElementById('newMessage').value = '';
+            displayMessages();
+        }
+
+        function displayMessages() {
+            const thread = messages.filter(m =>
+                (m.from === currentUser.id && m.to === currentMessageDoctor.id) ||
+                (m.from === currentMessageDoctor.id && m.to === currentUser.id)
+            );
+
+            let html = '';
+            thread.forEach(msg => {
+                const isSent = msg.from === currentUser.id;
+                html += `
+                    <div style="margin-bottom: 15px;">
+                        <div style="font-weight: 600; color: ${isSent ? '#667eea' : '#333'}; font-size: 12px; margin-bottom: 5px;">
+                            ${isSent ? 'You' : msg.fromName}
+                        </div>
+                        <div style="background: ${isSent ? '#f0f4ff' : '#f9f9f9'}; padding: 10px 15px; border-radius: 8px; word-wrap: break-word;">
+                            ${msg.content}
+                        </div>
+                        <div style="font-size: 10px; color: #999; margin-top: 3px;">
+                            ${new Date(msg.timestamp).toLocaleTimeString()}
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('messagesThread').innerHTML = html || '<p style="color: #999; text-align: center; padding: 20px;">No messages yet.</p>';
+            document.getElementById('messagesThread').scrollTop = document.getElementById('messagesThread').scrollHeight;
+        }
+
+        // =======================
+        // PATIENT - PRESCRIPTIONS
+        // =======================
+        function loadPatientPrescriptions() {
+            let html = '';
+            const userPrescriptions = prescriptions.filter(p => p.patientId === currentUser.id);
+
+            if (userPrescriptions.length === 0) {
+                html = '<p style="color: #999; padding: 30px; text-align: center;">No prescriptions yet</p>';
+            } else {
+                userPrescriptions.forEach(prescription => {
+                    const doctor = clinicians.find(c => c.id === prescription.clinicianId);
+                    html += `
+                        <div class="prescription-card">
+                            <div class="prescription-header">
+                                <div>
+                                    <div class="prescription-doctor">${doctor ? doctor.name : 'Doctor'} - ${doctor ? doctor.specialty : ''}</div>
+                                    <div class="prescription-date">${new Date(prescription.date).toLocaleDateString()}</div>
+                                </div>
+                            </div>
+                            <div class="prescription-drugs">
+                                <strong style="color: #667eea;">Prescribed Drugs:</strong>
+                                ${prescription.drugs.map(drug => `
+                                    <div class="drug-item">
+                                        <div class="drug-name">${drug.name}</div>
+                                        <div class="drug-details">
+                                            <strong>Dosage:</strong> ${drug.dosage} | <strong>Frequency:</strong> ${drug.frequency} | <strong>Duration:</strong> ${drug.duration}
+                                            ${drug.instructions ? `<br><strong>Instructions:</strong> ${drug.instructions}` : ''}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ${prescription.doctorNotes ? `
+                                <div style="background: #f9f9f9; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #667eea;">
+                                    <strong style="color: #667eea;">Doctor's Notes:</strong>
+                                    <p style="color: #666; margin-top: 5px; font-size: 13px;">${prescription.doctorNotes}</p>
+                                </div>
+                            ` : ''}
+                            <div class="prescription-actions">
+                                <button class="action-btn download-btn" onclick="downloadPatientPrescription(${prescription.id})">📥 Download</button>
+                                <button class="action-btn message-btn" onclick="showMessageDoctorModal(${prescription.clinicianId})">💬 Ask Doctor</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('patientPrescriptionsContainer').innerHTML = html;
+        }
+
+        function downloadPatientPrescription(prescriptionId) {
+            const prescription = prescriptions.find(p => p.id === prescriptionId);
+            if (!prescription) return;
+
+            const doctor = clinicians.find(c => c.id === prescription.clinicianId);
+
+            let content = `
+═══════════════════════════════════════════
+                   PRESCRIPTION
+                    PioneerCare
+═══════════════════════════════════════════
+
+CLINICIAN INFORMATION:
+Name: ${doctor ? doctor.name : 'Doctor'}
+License: ${doctor ? doctor.license : 'N/A'}
+Specialty: ${doctor ? doctor.specialty : 'N/A'}
+
+PATIENT INFORMATION:
+Name: ${prescription.patientName}
+Phone: ${prescription.patientPhone}
+
+DATE: ${new Date(prescription.date).toLocaleDateString()} ${new Date(prescription.date).toLocaleTimeString()}
+
+═══════════════════════════════════════════
+                PRESCRIBED DRUGS
+═══════════════════════════════════════════
+
+`;
+
+            prescription.drugs.forEach((drug, index) => {
+                content += `
+${index + 1}. ${drug.name}
+   Dosage: ${drug.dosage}
+   Frequency: ${drug.frequency}
+   Duration: ${drug.duration}
+${drug.instructions ? `   Instructions: ${drug.instructions}\n` : ''}
+`;
+            });
+
+            content += `
+═══════════════════════════════════════════
+              DOCTOR'S NOTES
+═══════════════════════════════════════════
+
+${prescription.doctorNotes || 'No additional notes'}
+
+═══════════════════════════════════════════
+
+This prescription is valid for 30 days from the date of issue.
+Please consult your clinician if you have any questions.
+
+Generated by PioneerCare Platform
+${new Date().toLocaleString()}
+`;
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `prescription_${new Date().getTime()}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // =======================
+        // CLINICIAN - CONSULTATIONS
         // =======================
         function loadConsultations() {
-            const clinicianConsultations = consultations.filter(c => c.clinicianId === currentUser.id);
             let html = '';
+            const clinicianConsultations = consultations.filter(c => c.clinicianId === currentUser.id);
 
             if (clinicianConsultations.length === 0) {
                 html = '<p style="color: #999; padding: 30px; text-align: center;">No consultations yet</p>';
             } else {
                 clinicianConsultations.forEach(consultation => {
-                    const completedClass = consultation.completed ? 'opacity: 0.6;' : '';
                     html += `
-                        <div class="consultation-request" style="${completedClass}">
-                            <div class="patient-info">
-                                <div class="patient-details">
-                                    <div class="patient-name">${consultation.patientName}</div>
-                                    <div class="patient-phone">${consultation.patientPhone}</div>
+                        <div class="appointment-card">
+                            <div class="appointment-header">
+                                <div>
+                                    <div class="appointment-doctor">${consultation.patientName}</div>
+                                    <div style="font-size: 12px; color: #666;">${consultation.patientPhone}</div>
                                 </div>
-                                <div class="consultation-fee">KES ${consultation.fee}</div>
+                                <div class="appointment-status ${!consultation.completed ? 'status-pending' : 'status-completed'}">
+                                    ${consultation.completed ? 'COMPLETED' : 'PENDING'}
+                                </div>
                             </div>
-                            <div class="consultation-details">
-                                <div class="detail-item">
+                            <div class="appointment-details">
+                                <div class="detail-row">
                                     <span class="detail-label">Date:</span>
                                     <span class="detail-value">${new Date(consultation.date).toLocaleString()}</span>
                                 </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Status:</span>
-                                    <span class="detail-value">${consultation.completed ? '✓ Completed' : 'Pending'}</span>
+                                <div class="detail-row">
+                                    <span class="detail-label">Fee:</span>
+                                    <span class="detail-value">KES ${consultation.fee}</span>
                                 </div>
                             </div>
                             ${!consultation.completed ? `
-                                <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="showPrescriptionModal('${consultation.patientPhone}', '${consultation.patientName}', ${consultation.appointmentId})">
+                                <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="showPrescriptionModal('${consultation.patientPhone}', '${consultation.patientName}', ${consultation.id})">
                                     📋 Add Prescription
                                 </button>
                             ` : ''}
@@ -1506,11 +2143,11 @@
         }
 
         // =======================
-        // PRESCRIPTIONS
+        // CLINICIAN - PRESCRIPTIONS
         // =======================
-        function loadPrescriptions() {
-            const clinicianPrescriptions = prescriptions.filter(p => p.clinicianId === currentUser.id);
+        function loadClinicianPrescriptions() {
             let html = '';
+            const clinicianPrescriptions = prescriptions.filter(p => p.clinicianId === currentUser.id);
 
             if (clinicianPrescriptions.length === 0) {
                 html = '<p style="color: #999; padding: 30px; text-align: center;">No prescriptions issued yet</p>';
@@ -1519,42 +2156,69 @@
                     html += `
                         <div class="prescription-card">
                             <div class="prescription-header">
-                                <div class="prescription-patient">${prescription.patientName}</div>
-                                <div class="prescription-date">${new Date(prescription.date).toLocaleDateString()}</div>
+                                <div>
+                                    <div class="prescription-doctor">${prescription.patientName}</div>
+                                    <div class="prescription-date">${new Date(prescription.date).toLocaleDateString()}</div>
+                                </div>
                             </div>
                             <div class="prescription-drugs">
                                 <strong style="color: #667eea;">Drugs Prescribed:</strong>
-                                ${prescription.drugs.map((drug, idx) => `
-                                    <div class="drug-pill"><strong>${drug.name}</strong> - ${drug.dosage}, ${drug.frequency}</div>
+                                ${prescription.drugs.map(drug => `
+                                    <div class="drug-item">
+                                        <div class="drug-name">${drug.name}</div>
+                                        <div class="drug-details">
+                                            ${drug.dosage} - ${drug.frequency}
+                                        </div>
+                                    </div>
                                 `).join('')}
                             </div>
-                            ${prescription.doctorNotes ? `
-                                <div style="background: #f9f9f9; padding: 10px; border-radius: 6px; margin-bottom: 10px; font-size: 12px;">
-                                    <strong>Doctor's Notes:</strong>
-                                    <p>${prescription.doctorNotes}</p>
-                                </div>
-                            ` : ''}
                             <div class="prescription-actions">
-                                <button class="action-btn download-btn" onclick="downloadPrescription(${prescription.id})">📥 Download</button>
-                                <button class="action-btn share-btn" onclick="sharePrescription(${prescription.id})">📤 Share</button>
+                                <button class="action-btn download-btn" onclick="downloadClinicianPrescription(${prescription.id})">📥 Download</button>
                             </div>
                         </div>
                     `;
                 });
             }
 
-            document.getElementById('prescriptionsContainer').innerHTML = html;
+            document.getElementById('clinicianPrescriptionsContainer').innerHTML = html;
         }
 
-        function showPrescriptionModal(patientPhone, patientName, appointmentId) {
+        function downloadClinicianPrescription(prescriptionId) {
+            downloadPatientPrescription(prescriptionId);
+        }
+
+        // =======================
+        // PRESCRIPTION MODAL
+        // =======================
+        function showPrescriptionModal(patientPhone, patientName, consultationId) {
             currentPrescriptionDrugs = [];
+            const patient = patients.find(p => p.phone === patientPhone);
+            currentPrescriptionPatientId = patient ? patient.id : null;
+
             document.getElementById('prescriptionPatientName').textContent = patientName;
             document.getElementById('doctorNotes').value = '';
             document.getElementById('drugsList').innerHTML = '';
             document.getElementById('prescriptionMessage').innerHTML = '';
             document.getElementById('prescriptionModal').classList.add('show');
             document.getElementById('prescriptionModal').dataset.patientPhone = patientPhone;
-            document.getElementById('prescriptionModal').dataset.appointmentId = appointmentId;
+            document.getElementById('prescriptionModal').dataset.consultationId = consultationId;
+            document.getElementById('drugsListContainer').style.display = 'none';
+
+            // Check for allergies
+            if (patient) {
+                const healthRecord = healthRecords.find(h => h.patientId === patient.id && h.allergies);
+                if (healthRecord && healthRecord.allergies) {
+                    document.getElementById('allergyWarning').style.display = 'block';
+                    document.getElementById('patientAllergies').style.display = 'block';
+                    document.getElementById('allergyList').textContent = healthRecord.allergies;
+                } else {
+                    document.getElementById('allergyWarning').style.display = 'none';
+                    document.getElementById('patientAllergies').style.display = 'none';
+                }
+            } else {
+                document.getElementById('allergyWarning').style.display = 'none';
+                document.getElementById('patientAllergies').style.display = 'none';
+            }
         }
 
         function closePrescriptionModal() {
@@ -1593,20 +2257,27 @@
         }
 
         function displayPrescriptionDrugs() {
+            if (currentPrescriptionDrugs.length === 0) {
+                document.getElementById('drugsListContainer').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('drugsListContainer').style.display = 'block';
+
             let html = '';
             currentPrescriptionDrugs.forEach(drug => {
                 html += `
-                    <div class="drug-item">
-                        <div class="drug-details">
+                    <div class="drug-item" style="margin-bottom: 10px;">
+                        <div style="flex: 1;">
                             <div class="drug-name">${drug.name}</div>
-                            <div class="drug-info">
+                            <div class="drug-details">
                                 <strong>Dosage:</strong> ${drug.dosage}<br>
                                 <strong>Frequency:</strong> ${drug.frequency}<br>
                                 <strong>Duration:</strong> ${drug.duration}
                                 ${drug.instructions ? `<br><strong>Instructions:</strong> ${drug.instructions}` : ''}
                             </div>
                         </div>
-                        <button class="remove-drug-btn" onclick="removeDrugFromPrescription(${drug.id})">Remove</button>
+                        <button class="btn btn-secondary btn-small" style="height: auto;" onclick="removeDrugFromPrescription(${drug.id})">Remove</button>
                     </div>
                 `;
             });
@@ -1620,26 +2291,29 @@
 
         function submitPrescription() {
             if (currentPrescriptionDrugs.length === 0) {
-                document.getElementById('prescriptionMessage').innerHTML = '<div class="error-message">❌ Please add at least one drug to the prescription</div>';
+                document.getElementById('prescriptionMessage').innerHTML = '<div class="error-message">❌ Please add at least one drug</div>';
                 return;
             }
 
             const patientPhone = document.getElementById('prescriptionModal').dataset.patientPhone;
-            const appointmentId = document.getElementById('prescriptionModal').dataset.appointmentId;
+            const consultationId = parseInt(document.getElementById('prescriptionModal').dataset.consultationId);
             const patientName = document.getElementById('prescriptionPatientName').textContent;
             const doctorNotes = document.getElementById('doctorNotes').value;
+
+            const patient = patients.find(p => p.phone === patientPhone);
+            const patientId = patient ? patient.id : null;
 
             const prescription = {
                 id: Date.now(),
                 clinicianId: currentUser.id,
                 clinicianName: currentUser.name,
+                patientId,
                 patientPhone,
                 patientName,
-                appointmentId,
+                consultationId,
                 drugs: currentPrescriptionDrugs,
                 doctorNotes,
-                date: new Date().toISOString(),
-                downloadCount: 0
+                date: new Date().toISOString()
             };
 
             prescriptions.push(prescription);
@@ -1653,229 +2327,26 @@
 
             // Mark consultation as completed
             consultations = consultations.map(c => {
-                if (c.id === appointmentId) {
+                if (c.id === consultationId) {
                     c.completed = true;
                 }
                 return c;
             });
             localStorage.setItem('telecare_consultations', JSON.stringify(consultations));
 
-            document.getElementById('prescriptionMessage').innerHTML = '<div class="success-message">✓ Prescription saved successfully!</div>';
+            document.getElementById('prescriptionMessage').innerHTML = '<div class="success-message">✓ Prescription saved!</div>';
             setTimeout(() => {
                 closePrescriptionModal();
                 loadConsultations();
             }, 1500);
         }
 
-        function downloadPrescription(prescriptionId) {
-            const prescription = prescriptions.find(p => p.id === prescriptionId);
-            if (!prescription) return;
-
-            let content = `
-═══════════════════════════════════════════
-                   PRESCRIPTION
-                    TelemediCare
-═══════════════════════════════════════════
-
-CLINICIAN INFORMATION:
-Name: ${prescription.clinicianName}
-License: ${currentUser.license}
-Specialty: ${currentUser.specialty}
-
-PATIENT INFORMATION:
-Name: ${prescription.patientName}
-Phone: ${prescription.patientPhone}
-
-DATE: ${new Date(prescription.date).toLocaleDateString()} ${new Date(prescription.date).toLocaleTimeString()}
-
-═══════════════════════════════════════════
-                PRESCRIBED DRUGS
-═══════════════════════════════════════════
-
-`;
-
-            prescription.drugs.forEach((drug, index) => {
-                content += `
-${index + 1}. ${drug.name}
-   Dosage: ${drug.dosage}
-   Frequency: ${drug.frequency}
-   Duration: ${drug.duration}
-${drug.instructions ? `   Instructions: ${drug.instructions}\n` : ''}
-`;
-            });
-
-            content += `
-═══════════════════════════════════════════
-              DOCTOR'S NOTES
-═══════════════════════════════════════════
-
-${prescription.doctorNotes || 'No additional notes'}
-
-═══════════════════════════════════════════
-
-This prescription is valid for 30 days from the date of issue.
-Please consult your clinician if you have any questions.
-
-Generated by TelemediCare Platform
-${new Date().toLocaleString()}
-`;
-
-            const blob = new Blob([content], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `prescription_${prescription.patientName.replace(/\s+/g, '_')}_${Date.now()}.txt`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            window.URL.revokeObjectURL(url);
-        }
-
-        function sharePrescription(prescriptionId) {
-            alert('Prescription share feature: Share link would be generated here for patient to access their prescription.');
-        }
-
-        // =======================
-        // APPOINTMENTS
-        // =======================
-        function loadAppointments() {
-            const userAppointments = currentRole === 'patient' ? 
-                appointments.filter(a => a.patientPhone === currentUser.phone) :
-                appointments.filter(a => !a.clinicianId || a.clinicianId === currentUser.id);
-
-            let html = '';
-            if (userAppointments.length === 0) {
-                html = '<p style="color: #999; padding: 30px; text-align: center;">No appointments yet</p>';
-            } else {
-                userAppointments.forEach(apt => {
-                    html += `
-                        <div class="consultation-request">
-                            <div class="patient-info">
-                                <div class="patient-details">
-                                    <div class="patient-name">${apt.patientName}</div>
-                                    <div class="patient-phone">${apt.patientPhone}</div>
-                                </div>
-                                <div class="consultation-fee">KES ${apt.fee}</div>
-                            </div>
-                            <div class="consultation-details">
-                                <div class="detail-item">
-                                    <span class="detail-label">Date:</span>
-                                    <span class="detail-value">${new Date(apt.appointmentDate).toLocaleString()}</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Complaint:</span>
-                                    <span class="detail-value">${apt.chiefComplaint}</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Status:</span>
-                                    <span class="detail-value" style="color: #667eea; font-weight: 600;">${apt.status}</span>
-                                </div>
-                            </div>
-                            ${currentRole === 'clinician' && apt.status === 'pending' ? `
-                                <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="confirmAppointment(${apt.id})">
-                                    ✓ Confirm & Start
-                                </button>
-                            ` : ''}
-                        </div>
-                    `;
-                });
-            }
-
-            document.getElementById('appointmentsContainer').innerHTML = html;
-        }
-
-        function showNewAppointmentModal() {
-            const now = new Date();
-            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-            document.getElementById('appointmentDate').min = now.toISOString().slice(0, 16);
-
-            document.getElementById('patientName').value = '';
-            document.getElementById('patientPhone').value = '';
-            document.getElementById('chiefComplaint').value = '';
-            document.getElementById('appointmentDate').value = '';
-            document.getElementById('consultationFee').value = '500';
-            document.getElementById('appointmentMessage').innerHTML = '';
-            document.getElementById('newAppointmentModal').classList.add('show');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('show');
-        }
-
-        function createAppointment() {
-            const patientName = document.getElementById('patientName').value;
-            const patientPhone = document.getElementById('patientPhone').value;
-            const appointmentDate = document.getElementById('appointmentDate').value;
-            const chiefComplaint = document.getElementById('chiefComplaint').value;
-            const fee = parseInt(document.getElementById('consultationFee').value);
-
-            if (!patientName || !patientPhone || !appointmentDate || !chiefComplaint) {
-                document.getElementById('appointmentMessage').innerHTML = '<div class="error-message">Please fill all fields</div>';
-                return;
-            }
-
-            const appointment = {
-                id: Date.now(),
-                clinicianId: currentUser.id,
-                patientName,
-                patientPhone,
-                appointmentDate,
-                chiefComplaint,
-                fee,
-                status: 'pending',
-                createdAt: new Date().toISOString(),
-                completedAt: null
-            };
-
-            appointments.push(appointment);
-            localStorage.setItem('telecare_appointments', JSON.stringify(appointments));
-
-            document.getElementById('appointmentMessage').innerHTML = '<div class="success-message">✓ Appointment created! Waiting for patient confirmation.</div>';
-
-            setTimeout(() => {
-                closeModal('newAppointmentModal');
-                loadAppointments();
-            }, 1500);
-        }
-
-        function confirmAppointment(appointmentId) {
-            const appointment = appointments.find(a => a.id === appointmentId);
-            if (!appointment) return;
-
-            appointment.status = 'confirmed';
-            localStorage.setItem('telecare_appointments', JSON.stringify(appointments));
-
-            // Create consultation record
-            const consultation = {
-                id: Date.now(),
-                appointmentId,
-                clinicianId: currentUser.id,
-                patientPhone: appointment.patientPhone,
-                patientName: appointment.patientName,
-                fee: appointment.fee,
-                date: new Date().toISOString(),
-                completed: false
-            };
-
-            consultations.push(consultation);
-            localStorage.setItem('telecare_consultations', JSON.stringify(consultations));
-
-            loadAppointments();
-            alert('Appointment confirmed! You can now add prescription for this patient.');
-        }
-
-        function startConsultation(appointmentId) {
-            const consultation = consultations.find(c => c.id === appointmentId);
-            if (!consultation) return;
-            showPrescriptionModal(consultation.patientPhone, consultation.patientName, appointmentId);
-        }
-
         // =======================
         // HEALTH RECORDS
         // =======================
         function loadHealthRecords() {
-            const userRecords = healthRecords.filter(r => r.patientId === currentUser.id);
             let html = '';
+            const userRecords = healthRecords.filter(r => r.patientId === currentUser.id);
 
             if (userRecords.length === 0) {
                 html = '<p style="color: #999; padding: 30px; text-align: center;">No health records yet</p>';
@@ -1884,24 +2355,24 @@ ${new Date().toLocaleString()}
                     html += `
                         <div style="background: white; border: 2px solid #e0e0e0; border-radius: 12px; padding: 20px; margin-bottom: 15px;">
                             <div style="font-weight: 600; color: #333; margin-bottom: 15px;">
-                                ${new Date(record.date).toLocaleDateString()}
+                                📅 ${new Date(record.date).toLocaleDateString()}
                             </div>
                             ${record.medicalConditions ? `
-                                <div style="margin-bottom: 10px;">
+                                <div style="margin-bottom: 15px;">
                                     <strong style="color: #667eea;">Medical Conditions:</strong>
-                                    <p style="color: #666;">${record.medicalConditions}</p>
+                                    <p style="color: #666; margin-top: 5px;">${record.medicalConditions}</p>
                                 </div>
                             ` : ''}
                             ${record.currentMeds ? `
-                                <div style="margin-bottom: 10px;">
+                                <div style="margin-bottom: 15px;">
                                     <strong style="color: #667eea;">Current Medications:</strong>
-                                    <p style="color: #666;">${record.currentMeds}</p>
+                                    <p style="color: #666; margin-top: 5px;">${record.currentMeds}</p>
                                 </div>
                             ` : ''}
                             ${record.allergies ? `
                                 <div>
                                     <strong style="color: #667eea;">Allergies:</strong>
-                                    <p style="color: #666;">${record.allergies}</p>
+                                    <p style="color: #666; margin-top: 5px;">${record.allergies}</p>
                                 </div>
                             ` : ''}
                         </div>
@@ -1942,16 +2413,375 @@ ${new Date().toLocaleString()}
         }
 
         // =======================
+        // VITAL SIGNS TRACKING
+        // =======================
+        function showVitalSignsModal() {
+            document.getElementById('bpSystolic').value = '';
+            document.getElementById('bpDiastolic').value = '';
+            document.getElementById('heartRate').value = '';
+            document.getElementById('temperature').value = '';
+            document.getElementById('weight').value = '';
+            document.getElementById('bloodSugar').value = '';
+            document.getElementById('vitalSignsNotes').value = '';
+            document.getElementById('vitalSignsMessage').innerHTML = '';
+            document.getElementById('vitalSignsModal').classList.add('show');
+        }
+
+        function loadVitalSigns() {
+            let html = '';
+            const userVitals = vitalSigns.filter(v => v.patientId === currentUser.id);
+
+            if (userVitals.length === 0) {
+                html = '<p style="color: #999; padding: 30px; text-align: center;">No vital signs recorded yet. Start tracking your health!</p>';
+            } else {
+                html += '<div style="margin-bottom: 20px;"><strong style="font-size: 16px; color: #667eea;">📊 Latest Reading:</strong></div>';
+                const latest = userVitals[userVitals.length - 1];
+                html += `
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                            <div>
+                                <div style="font-size: 12px; opacity: 0.9;">Blood Pressure</div>
+                                <div style="font-size: 20px; font-weight: bold;">${latest.bpSystolic}/${latest.bpDiastolic}</div>
+                                <div style="font-size: 11px; opacity: 0.8;">mmHg</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; opacity: 0.9;">Heart Rate</div>
+                                <div style="font-size: 20px; font-weight: bold;">${latest.heartRate}</div>
+                                <div style="font-size: 11px; opacity: 0.8;">bpm</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; opacity: 0.9;">Temperature</div>
+                                <div style="font-size: 20px; font-weight: bold;">${latest.temperature}°C</div>
+                                <div style="font-size: 11px; opacity: 0.8;"></div>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px;">
+                            <div>
+                                <div style="font-size: 12px; opacity: 0.9;">Weight</div>
+                                <div style="font-size: 18px; font-weight: bold;">${latest.weight} kg</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; opacity: 0.9;">Blood Sugar</div>
+                                <div style="font-size: 18px; font-weight: bold;">${latest.bloodSugar} mg/dL</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 11px; opacity: 0.7; margin-top: 10px;">
+                            Recorded: ${new Date(latest.date).toLocaleString()}
+                        </div>
+                    </div>
+                `;
+
+                html += '<h3 style="margin: 25px 0 15px; color: #333;">📈 History</h3>';
+                userVitals.slice().reverse().forEach(vital => {
+                    html += `
+                        <div style="background: white; border: 2px solid #e0e0e0; border-radius: 12px; padding: 15px; margin-bottom: 12px;">
+                            <div style="font-size: 12px; color: #999; margin-bottom: 10px;">${new Date(vital.date).toLocaleString()}</div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-size: 13px;">
+                                <div><strong>BP:</strong> ${vital.bpSystolic}/${vital.bpDiastolic}</div>
+                                <div><strong>HR:</strong> ${vital.heartRate} bpm</div>
+                                <div><strong>Temp:</strong> ${vital.temperature}°C</div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 13px; margin-top: 8px;">
+                                <div><strong>Weight:</strong> ${vital.weight} kg</div>
+                                <div><strong>Sugar:</strong> ${vital.bloodSugar} mg/dL</div>
+                            </div>
+                            ${vital.notes ? `<div style="margin-top: 8px; font-size: 12px; color: #666; font-style: italic;">${vital.notes}</div>` : ''}
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('vitalSignsContainer').innerHTML = html;
+        }
+
+        function submitVitalSigns() {
+            const bpSystolic = parseFloat(document.getElementById('bpSystolic').value);
+            const bpDiastolic = parseFloat(document.getElementById('bpDiastolic').value);
+            const heartRate = parseFloat(document.getElementById('heartRate').value);
+            const temperature = parseFloat(document.getElementById('temperature').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const bloodSugar = parseFloat(document.getElementById('bloodSugar').value);
+            const notes = document.getElementById('vitalSignsNotes').value;
+
+            if (!bpSystolic || !bpDiastolic || !heartRate || !temperature || !weight || !bloodSugar) {
+                document.getElementById('vitalSignsMessage').innerHTML = '<div class="error-message">❌ Please fill all vital signs fields</div>';
+                return;
+            }
+
+            const vital = {
+                id: Date.now(),
+                patientId: currentUser.id,
+                patientName: currentUser.name,
+                bpSystolic,
+                bpDiastolic,
+                heartRate,
+                temperature,
+                weight,
+                bloodSugar,
+                notes,
+                date: new Date().toISOString()
+            };
+
+            vitalSigns.push(vital);
+            localStorage.setItem('telecare_vitalSigns', JSON.stringify(vitalSigns));
+
+            document.getElementById('vitalSignsMessage').innerHTML = '<div class="success-message">✓ Vital signs saved! Your clinician can monitor your progress.</div>';
+            setTimeout(() => {
+                closeModal('vitalSignsModal');
+                loadVitalSigns();
+            }, 1500);
+        }
+
+        // =======================
+        // LAB RESULTS MANAGEMENT
+        // =======================
+        function showLabResultsModal() {
+            document.getElementById('labTestType').value = '';
+            document.getElementById('labTestDate').value = '';
+            document.getElementById('labDescription').value = '';
+            document.getElementById('labReferenceValues').value = '';
+            document.getElementById('labFacility').value = '';
+            document.getElementById('labResultsMessage').innerHTML = '';
+            document.getElementById('labResultsModal').classList.add('show');
+        }
+
+        function loadLabResults() {
+            let html = '';
+            const userLabResults = labResults.filter(l => l.patientId === currentUser.id);
+
+            if (userLabResults.length === 0) {
+                html = '<p style="color: #999; padding: 30px; text-align: center;">No lab results uploaded yet. Add your test results for your clinician to review.</p>';
+            } else {
+                userLabResults.slice().reverse().forEach(result => {
+                    html += `
+                        <div style="background: white; border: 2px solid #e0e0e0; border-radius: 12px; padding: 20px; margin-bottom: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                                <div>
+                                    <div style="font-weight: 600; color: #333; font-size: 16px;">${result.testType}</div>
+                                    <div style="font-size: 12px; color: #999; margin-top: 3px;">Test Date: ${new Date(result.testDate).toLocaleDateString()}</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 12px; color: #999;">${new Date(result.date).toLocaleString()}</div>
+                                </div>
+                            </div>
+                            ${result.description ? `
+                                <div style="background: #f9f9f9; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #667eea;">
+                                    <strong style="color: #667eea;">Results Summary:</strong>
+                                    <p style="color: #666; margin-top: 5px; font-size: 13px;">${result.description}</p>
+                                </div>
+                            ` : ''}
+                            ${result.referenceValues ? `
+                                <div style="background: #f0fff4; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #10b981;">
+                                    <strong style="color: #10b981;">Reference/Normal Range:</strong>
+                                    <p style="color: #666; margin-top: 5px; font-size: 13px;">${result.referenceValues}</p>
+                                </div>
+                            ` : ''}
+                            <div style="display: flex; gap: 10px; font-size: 12px;">
+                                <div style="flex: 1;">
+                                    <strong>Facility:</strong>
+                                    <div style="color: #666; margin-top: 3px;">${result.facility || 'Not specified'}</div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 12px;">
+                                <button class="btn btn-secondary btn-small" onclick="showMessageDoctorModal(${getCurrentLabResultClinicianId()})" style="width: 100%;">💬 Ask Doctor About This Result</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('labResultsContainer').innerHTML = html;
+        }
+
+        function getCurrentLabResultClinicianId() {
+            const recentAppointment = appointments.find(a => a.patientId === currentUser.id && a.status === 'confirmed');
+            return recentAppointment ? recentAppointment.clinicianId : null;
+        }
+
+        function submitLabResult() {
+            const testType = document.getElementById('labTestType').value;
+            const testDate = document.getElementById('labTestDate').value;
+            const description = document.getElementById('labDescription').value;
+            const referenceValues = document.getElementById('labReferenceValues').value;
+            const facility = document.getElementById('labFacility').value;
+
+            if (!testType || !testDate) {
+                document.getElementById('labResultsMessage').innerHTML = '<div class="error-message">❌ Please select test type and date</div>';
+                return;
+            }
+
+            const result = {
+                id: Date.now(),
+                patientId: currentUser.id,
+                patientName: currentUser.name,
+                testType,
+                testDate,
+                description,
+                referenceValues,
+                facility,
+                clinicianNotes: '',
+                date: new Date().toISOString()
+            };
+
+            labResults.push(result);
+            localStorage.setItem('telecare_labResults', JSON.stringify(labResults));
+
+            document.getElementById('labResultsMessage').innerHTML = '<div class="success-message">✓ Lab result saved! Your clinician will review and annotate if needed.</div>';
+            setTimeout(() => {
+                closeModal('labResultsModal');
+                loadLabResults();
+            }, 1500);
+        }
+
+        // =======================
+        // SYMPTOM CHECKER TRIAGE
+        // =======================
+        function loadSymptomChecker() {
+            let html = `
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; margin-bottom: 25px;">
+                    <h2 style="margin: 0 0 10px; font-size: 20px;">Quick Symptom Assessment</h2>
+                    <p style="margin: 0; opacity: 0.9;">Describe your symptoms to help us prioritize your consultation</p>
+                </div>
+
+                <div style="background: white; border: 2px solid #e0e0e0; border-radius: 12px; padding: 25px;">
+                    <form>
+                        <div class="form-group">
+                            <label style="font-weight: 600; color: #333;">Primary Symptom(s)</label>
+                            <textarea id="symptoms" placeholder="Describe your main symptoms (e.g., fever, cough, chest pain, headache)..." style="height: 100px;" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: 600; color: #333;">Symptom Duration</label>
+                            <select id="symptomDuration" required>
+                                <option value="">Select Duration</option>
+                                <option value="Less than 24 hours">Less than 24 hours</option>
+                                <option value="1-3 days">1-3 days</option>
+                                <option value="4-7 days">4-7 days</option>
+                                <option value="1-2 weeks">1-2 weeks</option>
+                                <option value="More than 2 weeks">More than 2 weeks</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: 600; color: #333;">Severity</label>
+                            <select id="symptomSeverity" required>
+                                <option value="">Select Severity</option>
+                                <option value="Mild">Mild (Manageable, not interfering much)</option>
+                                <option value="Moderate">Moderate (Noticeable impact on daily activities)</option>
+                                <option value="Severe">Severe (Significantly interfering with daily life)</option>
+                                <option value="Emergency">Emergency (Requires immediate attention)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: 600; color: #333;">Associated Symptoms</label>
+                            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0;">
+                                <label style="display: flex; align-items: center; margin-bottom: 10px; font-weight: 400;">
+                                    <input type="checkbox" name="associatedSymptom" value="Fever" style="margin-right: 10px;"> Fever
+                                </label>
+                                <label style="display: flex; align-items: center; margin-bottom: 10px; font-weight: 400;">
+                                    <input type="checkbox" name="associatedSymptom" value="Cough" style="margin-right: 10px;"> Cough
+                                </label>
+                                <label style="display: flex; align-items: center; margin-bottom: 10px; font-weight: 400;">
+                                    <input type="checkbox" name="associatedSymptom" value="Difficulty Breathing" style="margin-right: 10px;"> Difficulty Breathing
+                                </label>
+                                <label style="display: flex; align-items: center; margin-bottom: 10px; font-weight: 400;">
+                                    <input type="checkbox" name="associatedSymptom" value="Nausea/Vomiting" style="margin-right: 10px;"> Nausea/Vomiting
+                                </label>
+                                <label style="display: flex; align-items: center; margin-bottom: 10px; font-weight: 400;">
+                                    <input type="checkbox" name="associatedSymptom" value="Dizziness" style="margin-right: 10px;"> Dizziness
+                                </label>
+                                <label style="display: flex; align-items: center; font-weight: 400;">
+                                    <input type="checkbox" name="associatedSymptom" value="Body Aches" style="margin-right: 10px;"> Body Aches
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: 600; color: #333;">Additional Context</label>
+                            <textarea id="symptomContext" placeholder="Any other relevant information (recent travel, exposure to illness, current medications, etc.)..." style="height: 80px;"></textarea>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" onclick="submitSymptomAssessment()">📋 Submit & Request Priority Consultation</button>
+                    </form>
+                </div>
+
+                <div id="pastAssessments"></div>
+            `;
+
+            document.getElementById('symptomCheckerContainer').innerHTML = html;
+            loadPastAssessments();
+        }
+
+        function loadPastAssessments() {
+            let html = '';
+            const userAssessments = symptomAssessments.filter(s => s.patientId === currentUser.id);
+
+            if (userAssessments.length > 0) {
+                html = '<h3 style="margin: 30px 0 15px; color: #333;">📝 Past Assessments</h3>';
+                userAssessments.slice().reverse().forEach(assessment => {
+                    html += `
+                        <div style="background: white; border: 2px solid #e0e0e0; border-radius: 12px; padding: 15px; margin-bottom: 12px;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                                <div>
+                                    <div style="font-weight: 600; color: #333;">${assessment.symptoms.substring(0, 50)}...</div>
+                                    <div style="font-size: 12px; color: #999; margin-top: 3px;">${new Date(assessment.date).toLocaleString()}</div>
+                                </div>
+                                <div style="padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; color: white; background: ${assessment.severity === 'Emergency' ? '#ef4444' : assessment.severity === 'Severe' ? '#f97316' : assessment.severity === 'Moderate' ? '#eab308' : '#10b981'};">
+                                    ${assessment.severity}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById('pastAssessments').innerHTML = html;
+            }
+        }
+
+        function submitSymptomAssessment() {
+            const symptoms = document.getElementById('symptoms').value;
+            const duration = document.getElementById('symptomDuration').value;
+            const severity = document.getElementById('symptomSeverity').value;
+            const context = document.getElementById('symptomContext').value;
+
+            if (!symptoms || !duration || !severity) {
+                alert('Please fill in primary symptoms, duration, and severity');
+                return;
+            }
+
+            const associatedSymptoms = Array.from(document.querySelectorAll('input[name="associatedSymptom"]:checked')).map(cb => cb.value);
+
+            const assessment = {
+                id: Date.now(),
+                patientId: currentUser.id,
+                patientName: currentUser.name,
+                symptoms,
+                duration,
+                severity,
+                associatedSymptoms,
+                context,
+                triageLevel: severity === 'Emergency' ? 1 : severity === 'Severe' ? 2 : severity === 'Moderate' ? 3 : 4,
+                date: new Date().toISOString()
+            };
+
+            symptomAssessments.push(assessment);
+            localStorage.setItem('telecare_symptomAssessments', JSON.stringify(symptomAssessments));
+
+            alert('✓ Symptom assessment submitted! Our clinicians will prioritize consultation based on severity. You can now book an appointment.');
+            loadSymptomChecker();
+        }
+
+        // =======================
         // RATINGS
         // =======================
         function loadRatings() {
-            const clinicianRatings = ratings.filter(r => r.clinicianId === currentUser.id);
             let html = '';
+            const clinicianRatings = ratings.filter(r => r.clinicianId === currentUser.id);
 
             if (clinicianRatings.length === 0) {
                 html = '<p style="color: #999; padding: 30px; text-align: center;">No ratings yet. Excel in your consultations!</p>';
             } else {
-                let avgRating = clinicianRatings.reduce((sum, r) => sum + r.rating, 0) / clinicianRatings.length;
+                const avgRating = clinicianRatings.reduce((sum, r) => sum + r.rating, 0) / clinicianRatings.length;
                 html = `
                     <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center;">
                         <div style="font-size: 36px; font-weight: bold; margin-bottom: 10px;">${avgRating.toFixed(1)}/5.0</div>
@@ -1988,7 +2818,7 @@ ${new Date().toLocaleString()}
 
             if (currentRole === 'patient') {
                 html += `
-                    <div style="background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <div style="background: #f9f9f9; padding: 20px; border-radius: 12px;">
                         <div style="margin-bottom: 15px;">
                             <strong>Name:</strong> ${currentUser.name}
                         </div>
@@ -2005,12 +2835,12 @@ ${new Date().toLocaleString()}
                 `;
             } else {
                 html += `
-                    <div style="background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <div style="background: #f9f9f9; padding: 20px; border-radius: 12px;">
                         <div style="margin-bottom: 15px;">
                             <strong>Name:</strong> ${currentUser.name}
                         </div>
                         <div style="margin-bottom: 15px;">
-                            <strong>License Number:</strong> ${currentUser.license}
+                            <strong>License:</strong> ${currentUser.license}
                         </div>
                         <div style="margin-bottom: 15px;">
                             <strong>Email:</strong> ${currentUser.email}
@@ -2042,10 +2872,16 @@ ${new Date().toLocaleString()}
         // =======================
         function showMessage(elementId, message, type) {
             const element = document.getElementById(elementId);
-            element.innerHTML = `<div class="${type}-message">${type === 'error' ? '❌' : '✓'} ${message}</div>`;
+            element.innerHTML = `<div class="${type}-message">${type === 'error' ? '❌' : type === 'success' ? '✓' : 'ℹ'} ${message}</div>`;
         }
 
-        // Check for existing session
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        // =======================
+        // INITIALIZATION
+        // =======================
         window.addEventListener('load', () => {
             const savedUser = localStorage.getItem('telecare_currentUser');
             const savedRole = localStorage.getItem('telecare_currentRole');
@@ -2053,7 +2889,7 @@ ${new Date().toLocaleString()}
             if (savedUser && savedRole) {
                 currentUser = JSON.parse(savedUser);
                 currentRole = savedRole;
-                
+
                 if (currentRole === 'patient') {
                     currentUser = patients.find(p => p.id === currentUser.id);
                 } else {
@@ -2067,28 +2903,28 @@ ${new Date().toLocaleString()}
                     localStorage.removeItem('telecare_currentRole');
                 }
             }
-        });
 
-        // Add Mohamud Omar as demo clinician on first load
-        if (clinicians.length === 0) {
-            const demoClinician = {
-                id: 1,
-                name: 'Mohamud Omar',
-                license: 'R01708/26',
-                email: 'mohamud@medicare.com',
-                phone: '+254721208978',
-                specialty: 'General Practice',
-                securityAnswer: 'nairobi',
-                passwordHash: hashPassword('demo123'),
-                earnings: 0,
-                consultations: 0,
-                avgRating: 0,
-                totalRatings: 0,
-                createdAt: new Date().toISOString()
-            };
-            clinicians.push(demoClinician);
-            localStorage.setItem('telecare_clinicians', JSON.stringify(clinicians));
-        }
+            // Add demo clinician
+            if (clinicians.length === 0) {
+                const demoClinician = {
+                    id: 1,
+                    name: 'Mohamud Omar',
+                    license: 'R01708/26',
+                    email: 'mohamud@medicare.com',
+                    phone: '+254721208978',
+                    specialty: 'General Practice',
+                    passwordHash: hashPassword('demo123'),
+                    securityAnswer: 'nairobi',
+                    earnings: 0,
+                    consultations: 0,
+                    avgRating: 0,
+                    totalRatings: 0,
+                    createdAt: new Date().toISOString()
+                };
+                clinicians.push(demoClinician);
+                localStorage.setItem('telecare_clinicians', JSON.stringify(clinicians));
+            }
+        });
     </script>
 </body>
-    </html>
+</html>
