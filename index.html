@@ -174,6 +174,28 @@
             text-decoration: none;
         }
 
+        .toggle-auth a:hover {
+            text-decoration: underline;
+        }
+
+        .forgot-password-link {
+            display: block;
+            text-align: center;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        .forgot-password-link a {
+            color: #999;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .forgot-password-link a:hover {
+            color: #667eea;
+        }
+
         .error-message {
             background: #fee;
             color: #c33;
@@ -870,6 +892,9 @@
                             </div>
                             <button type="button" class="btn btn-primary" onclick="patientLogin()">Login</button>
                         </form>
+                        <div class="forgot-password-link">
+                            <a onclick="showForgotPasswordModal('patient')">Forgot Password?</a>
+                        </div>
                         <div class="toggle-auth">
                             Don't have an account? <a onclick="togglePatientAuth()">Register</a>
                         </div>
@@ -921,6 +946,9 @@
                             </div>
                             <button type="button" class="btn btn-primary" onclick="clinicianLogin()">Login</button>
                         </form>
+                        <div class="forgot-password-link">
+                            <a onclick="showForgotPasswordModal('clinician')">Forgot Password?</a>
+                        </div>
                         <div class="toggle-auth">
                             Don't have an account? <a onclick="toggleClinicianAuth()">Register</a>
                         </div>
@@ -1181,6 +1209,54 @@
     </div>
 
     <!-- MODALS -->
+    <!-- FORGOT PASSWORD MODAL -->
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2>Reset Password</h2>
+                <button class="close-btn" onclick="closeModal('forgotPasswordModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="forgotPasswordStep1">
+                    <p style="color: #666; margin-bottom: 20px; font-size: 14px;">Enter your phone number (for patients) or license number (for clinicians) to reset your password.</p>
+                    <div class="form-group">
+                        <label id="forgotPasswordFieldLabel">Phone Number</label>
+                        <input type="text" id="forgotPasswordField" placeholder="Enter your identifier" required>
+                    </div>
+                    <button type="button" class="btn btn-primary" style="width: 100%;" onclick="verifySecurity()">Verify Identity</button>
+                </div>
+
+                <div id="forgotPasswordStep2" style="display: none;">
+                    <p style="color: #666; margin-bottom: 20px; font-size: 14px;">Answer your security question to verify your identity.</p>
+                    <div class="form-group">
+                        <label>Security Question</label>
+                        <p style="background: #f5f5f5; padding: 12px; border-radius: 6px; margin: 10px 0 0 0; font-weight: 500;">What city were you born in?</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Answer</label>
+                        <input type="text" id="securityAnswer" placeholder="Enter your answer" required>
+                    </div>
+                    <button type="button" class="btn btn-primary" style="width: 100%;" onclick="verifySecurityAnswer()">Verify Answer</button>
+                </div>
+
+                <div id="forgotPasswordStep3" style="display: none;">
+                    <p style="color: #666; margin-bottom: 20px; font-size: 14px;">Create a new password for your account.</p>
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" id="newPassword" placeholder="Enter new password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirm new password" required>
+                    </div>
+                    <button type="button" class="btn btn-primary" style="width: 100%;" onclick="resetPassword()">Reset Password</button>
+                </div>
+
+                <div id="forgotPasswordError" style="display: none; color: #c33; margin-top: 15px; padding: 12px; background: #fee; border-radius: 6px; font-size: 13px;"></div>
+            </div>
+        </div>
+    </div>
+
     <div id="bookAppointmentModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1585,6 +1661,123 @@
             localStorage.setItem('telecare_currentUser', JSON.stringify(currentUser));
             localStorage.setItem('telecare_currentRole', currentRole);
             showDashboard();
+        }
+
+        // =======================
+        // FORGOT PASSWORD
+        // =======================
+        let forgotPasswordUserType = '';
+        let forgotPasswordUser = null;
+
+        function showForgotPasswordModal(userType) {
+            forgotPasswordUserType = userType;
+            forgotPasswordUser = null;
+
+            // Reset form
+            document.getElementById('forgotPasswordStep1').style.display = 'block';
+            document.getElementById('forgotPasswordStep2').style.display = 'none';
+            document.getElementById('forgotPasswordStep3').style.display = 'none';
+            document.getElementById('forgotPasswordError').style.display = 'none';
+            document.getElementById('forgotPasswordField').value = '';
+            document.getElementById('securityAnswer').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+
+            // Update label based on user type
+            const label = userType === 'patient' ? 'Phone Number' : 'License Number';
+            const placeholder = userType === 'patient' ? 'Enter your phone number' : 'Enter your license number';
+            document.getElementById('forgotPasswordFieldLabel').textContent = label;
+            document.getElementById('forgotPasswordField').placeholder = placeholder;
+
+            document.getElementById('forgotPasswordModal').style.display = 'block';
+        }
+
+        function verifySecurity() {
+            const identifier = document.getElementById('forgotPasswordField').value.trim();
+            let user = null;
+
+            if (!identifier) {
+                showForgotPasswordError('Please enter your identifier');
+                return;
+            }
+
+            if (forgotPasswordUserType === 'patient') {
+                user = patients.find(p => p.phone === identifier);
+            } else {
+                user = clinicians.find(c => c.license === identifier);
+            }
+
+            if (!user) {
+                showForgotPasswordError('No account found with this identifier');
+                return;
+            }
+
+            forgotPasswordUser = user;
+            document.getElementById('forgotPasswordError').style.display = 'none';
+            document.getElementById('forgotPasswordStep1').style.display = 'none';
+            document.getElementById('forgotPasswordStep2').style.display = 'block';
+        }
+
+        function verifySecurityAnswer() {
+            const answer = document.getElementById('securityAnswer').value.trim().toLowerCase();
+
+            if (!answer) {
+                showForgotPasswordError('Please enter your security answer');
+                return;
+            }
+
+            if (!forgotPasswordUser || forgotPasswordUser.securityAnswer !== answer) {
+                showForgotPasswordError('Incorrect security answer');
+                return;
+            }
+
+            document.getElementById('forgotPasswordError').style.display = 'none';
+            document.getElementById('forgotPasswordStep2').style.display = 'none';
+            document.getElementById('forgotPasswordStep3').style.display = 'block';
+        }
+
+        function resetPassword() {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!newPassword || !confirmPassword) {
+                showForgotPasswordError('Please fill all password fields');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                showForgotPasswordError('Passwords do not match');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showForgotPasswordError('Password must be at least 6 characters');
+                return;
+            }
+
+            // Update password
+            forgotPasswordUser.passwordHash = hashPassword(newPassword);
+
+            // Save updated user
+            if (forgotPasswordUserType === 'patient') {
+                const index = patients.findIndex(p => p.id === forgotPasswordUser.id);
+                patients[index] = forgotPasswordUser;
+                localStorage.setItem('telecare_patients', JSON.stringify(patients));
+            } else {
+                const index = clinicians.findIndex(c => c.id === forgotPasswordUser.id);
+                clinicians[index] = forgotPasswordUser;
+                localStorage.setItem('telecare_clinicians', JSON.stringify(clinicians));
+            }
+
+            // Close modal and show success
+            closeModal('forgotPasswordModal');
+            alert('✓ Password reset successfully! Please login with your new password.');
+        }
+
+        function showForgotPasswordError(message) {
+            const errorElement = document.getElementById('forgotPasswordError');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
         }
 
         function logout() {
