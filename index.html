@@ -1028,6 +1028,9 @@
                         <li><a href="#" onclick="showSection('vital-signs')" class="nav-link" id="vitalSignsNav" style="display: none;">❤️ Vital Signs</a></li>
                         <li><a href="#" onclick="showSection('lab-results')" class="nav-link" id="labResultsNav" style="display: none;">🔬 Lab Results</a></li>
                         <li><a href="#" onclick="showSection('symptom-checker')" class="nav-link" id="symptomCheckerNav" style="display: none;">🩺 Symptom Checker</a></li>
+                        <li><a href="#" onclick="showSection('medical-records')" class="nav-link" id="medicalRecordsNav" style="display: none;">📑 Medical Records</a></li>
+                        <li><a href="#" onclick="showSection('messaging')" class="nav-link" id="messagingNav" style="display: none;">💬 Messages</a></li>
+                        <li><a href="#" onclick="showSection('health-analytics')" class="nav-link" id="healthAnalyticsNav" style="display: none;">📊 Health Trends</a></li>
                         <li><a href="#" onclick="showSection('ratings')" class="nav-link" id="ratingsNav" style="display: none;">⭐ Ratings</a></li>
                         <li><a href="#" onclick="showSection('settings')" class="nav-link">⚙️ Settings</a></li>
                     </ul>
@@ -1190,6 +1193,38 @@
                             <h1>Patient Ratings & Reviews</h1>
                         </div>
                         <div id="ratingsContainer"></div>
+                    </div>
+
+                    <!-- MEDICAL RECORDS SECTION -->
+                    <div id="medical-records" class="section">
+                        <div class="header">
+                            <h1>📑 Medical Records</h1>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <p style="color: #666; margin-bottom: 20px;">Download and manage your complete medical history</p>
+                            <div id="medicalRecordsContent"></div>
+                        </div>
+                    </div>
+
+                    <!-- MESSAGING SECTION -->
+                    <div id="messaging" class="section">
+                        <div class="header">
+                            <h1>💬 Messages</h1>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <button class="btn btn-primary" onclick="showNewMessageModal()" style="margin-bottom: 20px;">+ New Message</button>
+                            <div id="messagesContent" style="max-height: 600px; overflow-y: auto;"></div>
+                        </div>
+                    </div>
+
+                    <!-- HEALTH ANALYTICS SECTION -->
+                    <div id="health-analytics" class="section">
+                        <div class="header">
+                            <h1>📊 Health Trends & Analytics</h1>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <div id="healthAnalyticsContent"></div>
+                        </div>
                     </div>
 
                     <!-- SETTINGS SECTION -->
@@ -1500,6 +1535,9 @@
         let clinicians = JSON.parse(localStorage.getItem('telecare_clinicians') || '[]');
         let appointments = JSON.parse(localStorage.getItem('telecare_appointments') || '[]');
         let consultations = JSON.parse(localStorage.getItem('telecare_consultations') || '[]');
+        let messages = JSON.parse(localStorage.getItem('telecare_messages') || '[]');
+        let medicalRecords = JSON.parse(localStorage.getItem('telecare_medicalRecords') || '[]');
+        let notifications = JSON.parse(localStorage.getItem('telecare_notifications') || '[]');
         let prescriptions = JSON.parse(localStorage.getItem('telecare_prescriptions') || '[]');
         let healthRecords = JSON.parse(localStorage.getItem('telecare_healthRecords') || '[]');
         let ratings = JSON.parse(localStorage.getItem('telecare_ratings') || '[]');
@@ -1827,6 +1865,9 @@
             document.getElementById('vitalSignsNav').style.display = isPatient ? 'block' : 'none';
             document.getElementById('labResultsNav').style.display = isPatient ? 'block' : 'none';
             document.getElementById('symptomCheckerNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('medicalRecordsNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('messagingNav').style.display = 'block';
+            document.getElementById('healthAnalyticsNav').style.display = isPatient ? 'block' : 'none';
             document.getElementById('consultationsNav').style.display = isClinician ? 'block' : 'none';
             document.getElementById('clinicianPrescriptionsNav').style.display = isClinician ? 'block' : 'none';
             document.getElementById('healthRecordsNav').style.display = isPatient ? 'block' : 'none';
@@ -1892,6 +1933,9 @@
             else if (sectionId === 'vital-signs') loadVitalSigns();
             else if (sectionId === 'lab-results') loadLabResults();
             else if (sectionId === 'symptom-checker') loadSymptomChecker();
+            else if (sectionId === 'medical-records') loadMedicalRecords();
+            else if (sectionId === 'messaging') loadMessaging();
+            else if (sectionId === 'health-analytics') loadHealthAnalytics();
             else if (sectionId === 'consultations') loadConsultations();
             else if (sectionId === 'my-prescriptions') loadClinicianPrescriptions();
             else if (sectionId === 'health-records') loadHealthRecords();
@@ -3071,6 +3115,261 @@ ${new Date().toLocaleString()}
 
             alert('✓ Symptom assessment submitted! Our clinicians will prioritize consultation based on severity. You can now book an appointment.');
             loadSymptomChecker();
+        }
+
+        // =======================
+        // MEDICAL RECORDS
+        // =======================
+        function loadMedicalRecords() {
+            let html = '<div style="max-width: 800px;">';
+            html += '<p style="color: #666; margin-bottom: 20px;">Access and download your complete medical history</p>';
+
+            // Create sections for different record types
+            const sections = [
+                { title: '📋 Consultations', type: 'consultations', data: consultations.filter(c => c.patientId === currentUser.id) },
+                { title: '💊 Prescriptions', type: 'prescriptions', data: prescriptions.filter(p => p.patientId === currentUser.id) },
+                { title: '❤️ Vital Signs', type: 'vitals', data: vitalSigns.filter(v => v.patientId === currentUser.id) },
+                { title: '🔬 Lab Results', type: 'labs', data: labResults.filter(l => l.patientId === currentUser.id) }
+            ];
+
+            sections.forEach(section => {
+                if (section.data.length > 0) {
+                    html += `<div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <h3 style="color: #333; margin-bottom: 12px;">${section.title}</h3>
+                        <p style="color: #666; font-size: 13px; margin-bottom: 10px;">${section.data.length} record(s)</p>
+                        <button class="btn btn-primary" style="width: auto; font-size: 12px;" onclick="downloadMedicalRecordPDF('${section.type}')">📥 Download as PDF</button>
+                    </div>`;
+                }
+            });
+
+            // Download all records button
+            if (sections.some(s => s.data.length > 0)) {
+                html += `<div style="margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="downloadCompleteMedicalHistory()" style="width: 100%;">📦 Download Complete Medical History (PDF)</button>
+                </div>`;
+            } else {
+                html += '<p style="color: #999; text-align: center; padding: 40px;">No medical records yet.</p>';
+            }
+
+            html += '</div>';
+            document.getElementById('medicalRecordsContent').innerHTML = html;
+        }
+
+        function downloadMedicalRecordPDF(type) {
+            let content = '';
+            let filename = `medical-records-${type}-${new Date().toISOString().split('T')[0]}.txt`;
+
+            if (type === 'consultations') {
+                content = 'CONSULTATION RECORDS\n\n';
+                consultations.filter(c => c.patientId === currentUser.id).forEach(c => {
+                    content += `Date: ${new Date(c.date).toLocaleDateString()}\nDoctor: ${c.clinicianName}\nNotes: ${c.notes}\n\n`;
+                });
+            } else if (type === 'prescriptions') {
+                content = 'PRESCRIPTION RECORDS\n\n';
+                prescriptions.filter(p => p.patientId === currentUser.id).forEach(p => {
+                    content += `Date: ${new Date(p.date).toLocaleDateString()}\nMedicine: ${p.medication}\nDosage: ${p.dosage}\nDoctor: ${p.clinicianName}\n\n`;
+                });
+            } else if (type === 'vitals') {
+                content = 'VITAL SIGNS RECORDS\n\n';
+                vitalSigns.filter(v => v.patientId === currentUser.id).forEach(v => {
+                    content += `Date: ${new Date(v.date).toLocaleDateString()}\nBP: ${v.bpSystolic}/${v.bpDiastolic} | HR: ${v.heartRate} | Temp: ${v.temperature}°C | Weight: ${v.weight}kg\n\n`;
+                });
+            } else if (type === 'labs') {
+                content = 'LAB RESULTS RECORDS\n\n';
+                labResults.filter(l => l.patientId === currentUser.id).forEach(l => {
+                    content += `Date: ${new Date(l.date).toLocaleDateString()}\nTest: ${l.testName}\nResult: ${l.result}\nFacility: ${l.facility}\n\n`;
+                });
+            }
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            alert('✓ Records downloaded successfully!');
+        }
+
+        function downloadCompleteMedicalHistory() {
+            let content = `COMPLETE MEDICAL HISTORY\nPatient: ${currentUser.name}\nGenerated: ${new Date().toLocaleDateString()}\n\n`;
+
+            content += '\n=== CONSULTATIONS ===\n';
+            consultations.filter(c => c.patientId === currentUser.id).forEach(c => {
+                content += `${new Date(c.date).toLocaleDateString()} - Dr. ${c.clinicianName}: ${c.notes}\n`;
+            });
+
+            content += '\n=== PRESCRIPTIONS ===\n';
+            prescriptions.filter(p => p.patientId === currentUser.id).forEach(p => {
+                content += `${new Date(p.date).toLocaleDateString()} - ${p.medication} (${p.dosage}) by Dr. ${p.clinicianName}\n`;
+            });
+
+            content += '\n=== VITAL SIGNS ===\n';
+            vitalSigns.filter(v => v.patientId === currentUser.id).forEach(v => {
+                content += `${new Date(v.date).toLocaleDateString()} - BP: ${v.bpSystolic}/${v.bpDiastolic}, HR: ${v.heartRate}, Temp: ${v.temperature}°C, Weight: ${v.weight}kg\n`;
+            });
+
+            content += '\n=== LAB RESULTS ===\n';
+            labResults.filter(l => l.patientId === currentUser.id).forEach(l => {
+                content += `${new Date(l.date).toLocaleDateString()} - ${l.testName}: ${l.result} (${l.facility})\n`;
+            });
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `complete-medical-history-${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            alert('✓ Complete medical history downloaded!');
+        }
+
+        // =======================
+        // MESSAGING & COMMUNICATION
+        // =======================
+        function loadMessaging() {
+            let html = '<div style="max-width: 800px;">';
+
+            const userMessages = messages.filter(m =>
+                (m.senderId === currentUser.id) || (m.recipientId === currentUser.id)
+            );
+
+            if (userMessages.length === 0) {
+                html += '<p style="color: #999; text-align: center; padding: 40px;">No messages yet.</p>';
+            } else {
+                // Group messages by conversation
+                const conversations = {};
+                userMessages.forEach(msg => {
+                    const otherId = msg.senderId === currentUser.id ? msg.recipientId : msg.senderId;
+                    const otherName = msg.senderId === currentUser.id ? msg.recipientName : msg.senderName;
+                    if (!conversations[otherId]) {
+                        conversations[otherId] = { name: otherName, messages: [] };
+                    }
+                    conversations[otherId].messages.push(msg);
+                });
+
+                Object.entries(conversations).forEach(([userId, conv]) => {
+                    const lastMsg = conv.messages[conv.messages.length - 1];
+                    const isUnread = lastMsg.recipientId === currentUser.id && !lastMsg.read;
+
+                    html += `<div style="background: ${isUnread ? '#e8f0ff' : '#f8f9fa'}; padding: 15px; border-radius: 8px; margin-bottom: 10px; cursor: pointer;"
+                        onclick="openConversation('${userId}', '${conv.name}')">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 600; color: #333;">${conv.name}</div>
+                                <div style="color: #666; font-size: 13px;">${lastMsg.message.substring(0, 50)}...</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="color: #999; font-size: 12px;">${new Date(lastMsg.timestamp).toLocaleDateString()}</div>
+                                ${isUnread ? '<div style="background: #667eea; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px;">●</div>' : ''}
+                            </div>
+                        </div>
+                    </div>`;
+                });
+            }
+
+            html += '</div>';
+            document.getElementById('messagesContent').innerHTML = html;
+        }
+
+        function showNewMessageModal() {
+            alert('Coming soon: Direct messaging interface');
+        }
+
+        function openConversation(userId, userName) {
+            alert(`Conversation with ${userName}\n\nFeature coming in next update!`);
+        }
+
+        // =======================
+        // HEALTH ANALYTICS & TRENDS
+        // =======================
+        function loadHealthAnalytics() {
+            let html = '<div style="max-width: 900px;">';
+
+            // Vital Signs Trends
+            const userVitals = vitalSigns.filter(v => v.patientId === currentUser.id);
+            if (userVitals.length > 0) {
+                const latestVital = userVitals[userVitals.length - 1];
+                const prevVital = userVitals.length > 1 ? userVitals[userVitals.length - 2] : null;
+
+                html += `<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <h3>Latest Vital Signs</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px;">
+                        <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
+                            <div style="font-size: 24px; font-weight: bold;">${latestVital.bpSystolic}/${latestVital.bpDiastolic}</div>
+                            <div style="font-size: 12px;">Blood Pressure</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
+                            <div style="font-size: 24px; font-weight: bold;">${latestVital.heartRate}</div>
+                            <div style="font-size: 12px;">Heart Rate (bpm)</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
+                            <div style="font-size: 24px; font-weight: bold;">${latestVital.temperature}°C</div>
+                            <div style="font-size: 12px;">Temperature</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px;">
+                            <div style="font-size: 24px; font-weight: bold;">${latestVital.weight}</div>
+                            <div style="font-size: 12px;">Weight (kg)</div>
+                        </div>
+                    </div>
+                </div>`;
+
+                // Trend indicators
+                if (prevVital) {
+                    html += `<div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <h3 style="color: #333; margin-bottom: 10px;">Health Trends</h3>
+                        <div style="font-size: 13px; color: #666;">
+                            <div>📊 You have logged ${userVitals.length} vital sign records</div>
+                            <div style="margin-top: 8px;">📈 Track your vitals regularly to monitor your health</div>
+                        </div>
+                    </div>`;
+                }
+            } else {
+                html += '<p style="color: #999; padding: 30px;">Log some vital signs to see your health trends and analytics!</p>';
+            }
+
+            // Medication Compliance
+            const userMeds = prescriptions.filter(p => p.patientId === currentUser.id);
+            if (userMeds.length > 0) {
+                html += `<div style="background: #f0fff4; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #48bb78;">
+                    <h3 style="color: #48bb78; margin-bottom: 10px;">💊 Medication Adherence</h3>
+                    <div style="font-size: 13px; color: #22543d;">
+                        <div>You are currently on ${userMeds.length} medication(s)</div>
+                        <div style="margin-top: 8px;">✓ Keep track of refill dates and set reminders</div>
+                    </div>
+                </div>`;
+            }
+
+            // Health Score (Simple calculation)
+            const healthScore = calculateHealthScore();
+            html += `<div style="background: #fff5f0; padding: 15px; border-radius: 8px; border-left: 4px solid #ed8936;">
+                <h3 style="color: #ed8936; margin-bottom: 10px;">⭐ Overall Health Score</h3>
+                <div style="font-size: 28px; font-weight: bold; color: #ed8936; margin-bottom: 10px;">${healthScore}/100</div>
+                <div style="font-size: 13px; color: #666;">
+                    ${healthScore >= 80 ? '✓ Excellent! Keep up with your health routine' :
+                      healthScore >= 60 ? '⚠ Good. Continue monitoring your vital signs' :
+                      '⚠ Fair. Schedule a consultation with your clinician'}
+                </div>
+            </div>`;
+
+            html += '</div>';
+            document.getElementById('healthAnalyticsContent').innerHTML = html;
+        }
+
+        function calculateHealthScore() {
+            let score = 70; // Base score
+
+            const userVitals = vitalSigns.filter(v => v.patientId === currentUser.id);
+            if (userVitals.length > 0) {
+                const latest = userVitals[userVitals.length - 1];
+                // Check vital ranges
+                if (latest.bpSystolic < 140 && latest.bpDiastolic < 90) score += 10;
+                if (latest.heartRate >= 60 && latest.heartRate <= 100) score += 10;
+                if (latest.temperature >= 36 && latest.temperature <= 37.5) score += 10;
+            }
+
+            const appointments = userAppointments.filter(a => a.patientId === currentUser.id && new Date(a.date) >= new Date());
+            if (appointments.length > 0) score += 5;
+
+            return Math.min(100, Math.max(0, score));
         }
 
         // =======================
