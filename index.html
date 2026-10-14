@@ -1618,6 +1618,56 @@
         let messages = JSON.parse(localStorage.getItem('telecare_messages') || '[]');
         let medicalRecords = JSON.parse(localStorage.getItem('telecare_medicalRecords') || '[]');
         let notifications = JSON.parse(localStorage.getItem('telecare_notifications') || '[]');
+
+        // Initialize demo data if empty
+        function initializeDemoData() {
+            if (patients.length === 0) {
+                patients = [
+                    {
+                        id: Date.now(),
+                        name: 'John Kariuki',
+                        phone: '+254721208978',
+                        dob: '1995-05-15',
+                        passwordHash: 'hash_1847382920',
+                        securityAnswer: 'nairobi',
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: Date.now() + 1,
+                        name: 'Jane Mwangi',
+                        phone: '+254798765432',
+                        dob: '1998-03-22',
+                        passwordHash: 'hash_1847382920',
+                        securityAnswer: 'nairobi',
+                        createdAt: new Date().toISOString()
+                    }
+                ];
+                localStorage.setItem('telecare_patients', JSON.stringify(patients));
+            }
+
+            if (clinicians.length === 0) {
+                clinicians = [
+                    {
+                        id: Date.now() + 2,
+                        name: 'Dr. Sarah Johnson',
+                        license: 'R01708/26',
+                        email: 'sarah@telecare.com',
+                        phone: '+254721208978',
+                        specialty: 'General Practice',
+                        passwordHash: 'hash_1847382920',
+                        securityAnswer: 'nairobi',
+                        earnings: 0,
+                        consultations: 0,
+                        avgRating: 0,
+                        totalRatings: 0,
+                        createdAt: new Date().toISOString()
+                    }
+                ];
+                localStorage.setItem('telecare_clinicians', JSON.stringify(clinicians));
+            }
+        }
+
+        initializeDemoData();
         let prescriptions = JSON.parse(localStorage.getItem('telecare_prescriptions') || '[]');
         let healthRecords = JSON.parse(localStorage.getItem('telecare_healthRecords') || '[]');
         let ratings = JSON.parse(localStorage.getItem('telecare_ratings') || '[]');
