@@ -892,8 +892,8 @@
                 <div id="messageBox"></div>
 
                 <!-- PATIENT LOGIN/REGISTER -->
-                <div id="patientAuthForm">
-                    <div id="patientLoginForm">
+                <div id="patientAuthForm" style="display: block;">
+                    <div id="patientLoginForm" style="display: block;">
                         <h2>Patient Login</h2>
                         <form>
                             <div class="form-group">
@@ -947,7 +947,7 @@
 
                 <!-- CLINICIAN LOGIN/REGISTER -->
                 <div id="clinicianAuthForm" style="display: none;">
-                    <div id="clinicianLoginForm">
+                    <div id="clinicianLoginForm" style="display: block;">
                         <h2>Clinician Login</h2>
                         <form>
                             <div class="form-group">
@@ -1659,8 +1659,15 @@
             });
         }
 
-        // Call on page load
-        document.addEventListener('DOMContentLoaded', initRoleButtons);
+        // Call on page load - try multiple methods to ensure it runs
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initRoleButtons);
+        } else {
+            initRoleButtons();
+        }
+
+        // Also call it directly to be safe
+        setTimeout(initRoleButtons, 100);
 
         function togglePatientAuth() {
             const loginForm = document.getElementById('patientLoginForm');
