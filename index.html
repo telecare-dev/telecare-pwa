@@ -235,19 +235,33 @@
             border: 3px solid #e0e0e0;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             background: white;
             text-align: center;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .role-btn:hover {
             border-color: #667eea;
             background: #f9f9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .role-btn:active {
+            transform: translateY(0px);
         }
 
         .role-btn.active {
             border-color: #667eea;
-            background: #f0f4ff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .role-btn.active .label {
+            color: white;
         }
 
         .role-btn .icon {
@@ -1619,29 +1633,59 @@
         // =======================
         // AUTHENTICATION
         // =======================
-        document.querySelectorAll('.role-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                const role = this.dataset.role;
-                document.getElementById('patientAuthForm').style.display = role === 'patient' ? 'block' : 'none';
-                document.getElementById('clinicianAuthForm').style.display = role === 'clinician' ? 'block' : 'none';
-                document.getElementById('messageBox').innerHTML = '';
+        // Initialize role buttons with better handling
+        function initRoleButtons() {
+            document.querySelectorAll('.role-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const role = this.dataset.role;
+
+                    if (role === 'patient') {
+                        document.getElementById('patientAuthForm').style.display = 'block';
+                        document.getElementById('clinicianAuthForm').style.display = 'none';
+                        document.getElementById('patientLoginForm').style.display = 'block';
+                        document.getElementById('patientRegisterForm').style.display = 'none';
+                    } else if (role === 'clinician') {
+                        document.getElementById('patientAuthForm').style.display = 'none';
+                        document.getElementById('clinicianAuthForm').style.display = 'block';
+                        document.getElementById('clinicianLoginForm').style.display = 'block';
+                        document.getElementById('clinicianRegisterForm').style.display = 'none';
+                    }
+
+                    document.getElementById('messageBox').innerHTML = '';
+                });
             });
-        });
+        }
+
+        // Call on page load
+        document.addEventListener('DOMContentLoaded', initRoleButtons);
 
         function togglePatientAuth() {
-            document.getElementById('patientLoginForm').style.display =
-                document.getElementById('patientLoginForm').style.display === 'none' ? 'block' : 'none';
-            document.getElementById('patientRegisterForm').style.display =
-                document.getElementById('patientRegisterForm').style.display === 'none' ? 'block' : 'none';
+            const loginForm = document.getElementById('patientLoginForm');
+            const registerForm = document.getElementById('patientRegisterForm');
+
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            }
         }
 
         function toggleClinicianAuth() {
-            document.getElementById('clinicianLoginForm').style.display =
-                document.getElementById('clinicianLoginForm').style.display === 'none' ? 'block' : 'none';
-            document.getElementById('clinicianRegisterForm').style.display =
-                document.getElementById('clinicianRegisterForm').style.display === 'none' ? 'block' : 'none';
+            const loginForm = document.getElementById('clinicianLoginForm');
+            const registerForm = document.getElementById('clinicianRegisterForm');
+
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            }
         }
 
         function hashPassword(password) {
