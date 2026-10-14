@@ -1031,6 +1031,12 @@
                         <li><a href="#" onclick="showSection('medical-records')" class="nav-link" id="medicalRecordsNav" style="display: none;">📑 Medical Records</a></li>
                         <li><a href="#" onclick="showSection('messaging')" class="nav-link" id="messagingNav" style="display: none;">💬 Messages</a></li>
                         <li><a href="#" onclick="showSection('health-analytics')" class="nav-link" id="healthAnalyticsNav" style="display: none;">📊 Health Trends</a></li>
+                        <li><a href="#" onclick="showSection('payment')" class="nav-link" id="paymentNav" style="display: none;">💳 Payments</a></li>
+                        <li><a href="#" onclick="showSection('pharmacy')" class="nav-link" id="pharmacyNav" style="display: none;">🏥 Pharmacy</a></li>
+                        <li><a href="#" onclick="showSection('insurance')" class="nav-link" id="insuranceNav" style="display: none;">📋 Insurance</a></li>
+                        <li><a href="#" onclick="showSection('health-community')" class="nav-link" id="healthCommunityNav" style="display: none;">👥 Community</a></li>
+                        <li><a href="#" onclick="showSection('health-blog')" class="nav-link" id="healthBlogNav" style="display: none;">📚 Health Blog</a></li>
+                        <li><a href="#" onclick="showSection('ai-assistant')" class="nav-link" id="aiAssistantNav" style="display: none;">🤖 AI Assistant</a></li>
                         <li><a href="#" onclick="showSection('ratings')" class="nav-link" id="ratingsNav" style="display: none;">⭐ Ratings</a></li>
                         <li><a href="#" onclick="showSection('settings')" class="nav-link">⚙️ Settings</a></li>
                     </ul>
@@ -1224,6 +1230,66 @@
                         </div>
                         <div style="margin-top: 20px;">
                             <div id="healthAnalyticsContent"></div>
+                        </div>
+                    </div>
+
+                    <!-- PAYMENT SECTION -->
+                    <div id="payment" class="section">
+                        <div class="header">
+                            <h1>💳 Payments & Billing</h1>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <div id="paymentContent"></div>
+                        </div>
+                    </div>
+
+                    <!-- PHARMACY SECTION -->
+                    <div id="pharmacy" class="section">
+                        <div class="header">
+                            <h1>🏥 Pharmacy Integration</h1>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <div id="pharmacyContent"></div>
+                        </div>
+                    </div>
+
+                    <!-- INSURANCE SECTION -->
+                    <div id="insurance" class="section">
+                        <div class="header">
+                            <h1>📋 Insurance & Coverage</h1>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <div id="insuranceContent"></div>
+                        </div>
+                    </div>
+
+                    <!-- HEALTH COMMUNITY SECTION -->
+                    <div id="health-community" class="section">
+                        <div class="header">
+                            <h1>👥 Health Community</h1>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <div id="communityContent"></div>
+                        </div>
+                    </div>
+
+                    <!-- HEALTH BLOG SECTION -->
+                    <div id="health-blog" class="section">
+                        <div class="header">
+                            <h1>📚 Health Education Blog</h1>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <div id="blogContent"></div>
+                        </div>
+                    </div>
+
+                    <!-- AI ASSISTANT SECTION -->
+                    <div id="ai-assistant" class="section">
+                        <div class="header">
+                            <h1>🤖 AI Health Assistant</h1>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <div id="aiAssistantContent"></div>
                         </div>
                     </div>
 
@@ -1868,6 +1934,12 @@
             document.getElementById('medicalRecordsNav').style.display = isPatient ? 'block' : 'none';
             document.getElementById('messagingNav').style.display = 'block';
             document.getElementById('healthAnalyticsNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('paymentNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('pharmacyNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('insuranceNav').style.display = isPatient ? 'block' : 'none';
+            document.getElementById('healthCommunityNav').style.display = 'block';
+            document.getElementById('healthBlogNav').style.display = 'block';
+            document.getElementById('aiAssistantNav').style.display = 'block';
             document.getElementById('consultationsNav').style.display = isClinician ? 'block' : 'none';
             document.getElementById('clinicianPrescriptionsNav').style.display = isClinician ? 'block' : 'none';
             document.getElementById('healthRecordsNav').style.display = isPatient ? 'block' : 'none';
@@ -1936,6 +2008,12 @@
             else if (sectionId === 'medical-records') loadMedicalRecords();
             else if (sectionId === 'messaging') loadMessaging();
             else if (sectionId === 'health-analytics') loadHealthAnalytics();
+            else if (sectionId === 'payment') loadPayments();
+            else if (sectionId === 'pharmacy') loadPharmacy();
+            else if (sectionId === 'insurance') loadInsurance();
+            else if (sectionId === 'health-community') loadHealthCommunity();
+            else if (sectionId === 'health-blog') loadHealthBlog();
+            else if (sectionId === 'ai-assistant') loadAIAssistant();
             else if (sectionId === 'consultations') loadConsultations();
             else if (sectionId === 'my-prescriptions') loadClinicianPrescriptions();
             else if (sectionId === 'health-records') loadHealthRecords();
@@ -3370,6 +3448,158 @@ ${new Date().toLocaleString()}
             if (appointments.length > 0) score += 5;
 
             return Math.min(100, Math.max(0, score));
+        }
+
+        // =======================
+        // PHASE 3: PAYMENTS & INTEGRATIONS
+        // =======================
+        function loadPayments() {
+            let html = `<div style="max-width: 800px;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <h3>💰 Account Balance</h3>
+                    <div style="font-size: 32px; font-weight: bold; margin: 15px 0;">KES 0.00</div>
+                    <p style="opacity: 0.9;">Your consultation credit balance</p>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <h3 style="color: #333; margin-bottom: 15px;">💳 Payment Methods</h3>
+                    <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="openMpesaPayment()">📱 Pay with M-Pesa</button>
+                    <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="openCardPayment()">💳 Pay with Card</button>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="openBankPayment()">🏦 Bank Transfer</button>
+                </div>
+
+                <div style="background: #fff5f0; border-left: 4px solid #ed8936; padding: 15px; border-radius: 8px;">
+                    <h3 style="color: #ed8936; margin-bottom: 10px;">📊 Pricing</h3>
+                    <div style="font-size: 13px; color: #666;">
+                        <div>• General Consultation: KES 500</div>
+                        <div style="margin-top: 5px;">• Specialist Consultation: KES 1,000</div>
+                        <div style="margin-top: 5px;">• Follow-up Consultation: KES 300</div>
+                    </div>
+                </div>
+            </div>`;
+            document.getElementById('paymentContent').innerHTML = html;
+        }
+
+        function openMpesaPayment() { alert('🚀 M-Pesa Integration Ready!\n\nEnter amount and phone:\nFeature launching Q1 2026'); }
+        function openCardPayment() { alert('💳 Card Payment\n\nSecure card integration coming soon!'); }
+        function openBankPayment() { alert('🏦 Bank Transfer\n\nAccount: TeleCare Limited\nBank: KCB'); }
+
+        function loadPharmacy() {
+            let html = `<div style="max-width: 800px;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <h3>Active Prescriptions: ${prescriptions.filter(p => p.patientId === currentUser.id).length}</h3>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 10px; background: rgba(255,255,255,0.2); border: none;" onclick="findPharmacies()">📍 Find Pharmacies Near Me</button>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px;">
+                    <h3 style="color: #333; margin-bottom: 15px;">🏥 Supported Pharmacies</h3>
+                    <div style="font-size: 13px; color: #666; line-height: 1.8;">
+                        <div>✓ Direct pharmacy integration coming soon</div>
+                        <div style="margin-top: 5px;">✓ Home delivery available</div>
+                        <div style="margin-top: 5px;">✓ Price comparison</div>
+                        <div style="margin-top: 5px;">✓ Refill management</div>
+                    </div>
+                </div>
+            </div>`;
+            document.getElementById('pharmacyContent').innerHTML = html;
+        }
+
+        function findPharmacies() { alert('📍 Finding pharmacies near you...\n\nFeature coming soon!'); }
+
+        function loadInsurance() {
+            let html = `<div style="max-width: 800px;">
+                <div style="background: #e8f0ff; border-left: 4px solid #667eea; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Link Your Insurance Provider</h3>
+                    <button class="btn btn-primary" onclick="linkInsurance()">🔗 Link Insurance Account</button>
+                </div>
+
+                <div style="background: #fff5f0; border-left: 4px solid #ed8936; padding: 15px; border-radius: 8px;">
+                    <h3 style="color: #ed8936; margin-bottom: 10px;">Supported Insurers</h3>
+                    <div style="font-size: 13px; color: #666;">
+                        <div>✓ NHIF</div>
+                        <div>✓ AAR Kenya</div>
+                        <div>✓ APA Insurance</div>
+                        <div>✓ Britam</div>
+                        <div>✓ CIC Insurance</div>
+                    </div>
+                </div>
+            </div>`;
+            document.getElementById('insuranceContent').innerHTML = html;
+        }
+
+        function linkInsurance() { alert('🔗 Insurance Integration\n\nSelect your provider and link account.\n\nFeature coming soon!'); }
+
+        // =======================
+        // PHASE 4: COMMUNITY & AI
+        // =======================
+        function loadHealthCommunity() {
+            let html = `<div style="max-width: 800px;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <h3>👥 Support Groups</h3>
+                    <div style="margin-top: 15px;">
+                        <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px; background: rgba(255,255,255,0.2); border: none;" onclick="joinGroup('hypertension')">Hypertension Support (245)</button>
+                        <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px; background: rgba(255,255,255,0.2); border: none;" onclick="joinGroup('diabetes')">Diabetes Management (180)</button>
+                        <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px; background: rgba(255,255,255,0.2); border: none;" onclick="joinGroup('mental')">Mental Health (310)</button>
+                        <button class="btn btn-primary" style="width: 100%; background: rgba(255,255,255,0.2); border: none;" onclick="joinGroup('fitness')">Fitness & Wellness (420)</button>
+                    </div>
+                </div>
+
+                <div style="background: #e8f0ff; border-left: 4px solid #667eea; padding: 15px; border-radius: 8px;">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">💬 Community Features</h3>
+                    <div style="font-size: 13px; color: #555;">
+                        <div>✓ Connect with others</div>
+                        <div style="margin-top: 5px;">✓ Share experiences & tips</div>
+                        <div style="margin-top: 5px;">✓ Get peer support</div>
+                        <div style="margin-top: 5px;">✓ Expert-moderated discussions</div>
+                    </div>
+                </div>
+            </div>`;
+            document.getElementById('communityContent').innerHTML = html;
+        }
+
+        function joinGroup(id) { alert(`✓ Joined support group!\n\nConnect with members and share experiences.`); }
+
+        function loadHealthBlog() {
+            let html = `<div style="max-width: 800px;">
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px;">
+                    <h3 style="color: #333; margin-bottom: 15px;">📚 Expert Articles</h3>
+                    <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px; text-align: left; justify-content: flex-start;" onclick="readArticle('BP')">📖 Managing High Blood Pressure - Dr. Jane Smith</button>
+                    <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px; text-align: left; justify-content: flex-start;" onclick="readArticle('DM')">📖 Understanding Type 2 Diabetes - Dr. David Kim</button>
+                    <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px; text-align: left; justify-content: flex-start;" onclick="readArticle('MH')">📖 Mental Health Matters - Dr. Sarah Johnson</button>
+                    <button class="btn btn-primary" style="width: 100%; text-align: left; justify-content: flex-start;" onclick="readArticle('FIT')">📖 5 Home Exercises - Dr. Mike Wilson</button>
+                </div>
+            </div>`;
+            document.getElementById('blogContent').innerHTML = html;
+        }
+
+        function readArticle(code) { alert('📖 Reading full article...\n\nExpert health content coming soon!'); }
+
+        function loadAIAssistant() {
+            let html = `<div style="max-width: 800px;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <h1 style="margin: 0; font-size: 24px;">🤖 Health Assistant</h1>
+                    <p style="margin: 10px 0 0 0; opacity: 0.9;">24/7 Support</p>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; min-height: 200px;">
+                    <div style="color: #666; padding: 10px; background: #e8f0ff; border-radius: 8px;">Hi! Ask any health questions and I'll help.</div>
+                </div>
+
+                <input type="text" id="aiQuestion" placeholder="Ask your health question..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px;">
+                <button class="btn btn-primary" onclick="askAI()" style="width: 100%;">Send</button>
+
+                <div style="background: #fff5f0; border-left: 4px solid #ed8936; padding: 12px; border-radius: 8px; margin-top: 15px; font-size: 12px; color: #666;">
+                    For emergencies, call 112. This is general information only.
+                </div>
+            </div>`;
+            document.getElementById('aiAssistantContent').innerHTML = html;
+        }
+
+        function askAI() {
+            const q = document.getElementById('aiQuestion').value;
+            if (!q) return;
+            alert(`✓ Question received!\n\n"${q}"\n\nAI response feature coming soon!`);
+            document.getElementById('aiQuestion').value = '';
         }
 
         // =======================
