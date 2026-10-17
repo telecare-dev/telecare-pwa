@@ -688,6 +688,9 @@
                     </div>
                     <button class="btn btn-primary" onclick="login()">Login</button>
                     <button class="btn btn-primary" style="margin-top: 10px; background: #10b981;" onclick="register()">Register</button>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button class="btn" style="background: none; color: #667eea; border: none; cursor: pointer; text-decoration: underline;" onclick="showForgotPassword('patient')">Forgot Password?</button>
+                    </div>
                 `;
             } else {
                 form.innerHTML = `
@@ -702,6 +705,9 @@
                     </div>
                     <button class="btn btn-primary" onclick="login()">Login</button>
                     <button class="btn btn-primary" style="margin-top: 10px; background: #10b981;" onclick="register()">Register</button>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button class="btn" style="background: none; color: #667eea; border: none; cursor: pointer; text-decoration: underline;" onclick="showForgotPassword('clinician')">Forgot Password?</button>
+                    </div>
                 `;
             }
         }
@@ -731,6 +737,140 @@
                     messageBox.innerHTML = '<div class="message-box message-error">Invalid credentials</div>';
                 }
             }
+        }
+
+        // ========================================
+        // FORGOT PASSWORD FEATURE
+        // ========================================
+        function showForgotPassword(role) {
+            const modal = document.createElement('div');
+            modal.id = 'forgotPasswordModal';
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 10000;';
+
+            if (role === 'patient') {
+                modal.innerHTML = `
+                    <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%;">
+                        <h2 style="color: #667eea; margin-bottom: 20px;">🔐 Reset Patient Password</h2>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="resetPhone" placeholder="+254...">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="resetNewPassword" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="resetConfirmPassword" placeholder="Confirm password">
+                        </div>
+                        <div id="resetMessage"></div>
+                        <button class="btn btn-primary" onclick="resetPatientPassword()" style="width: 100%; margin-top: 15px;">Reset Password</button>
+                        <button class="btn" onclick="closeForgotPassword()" style="width: 100%; margin-top: 10px; background: #e0e0e0; color: #333;">Cancel</button>
+                    </div>
+                `;
+            } else {
+                modal.innerHTML = `
+                    <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%;">
+                        <h2 style="color: #667eea; margin-bottom: 20px;">🔐 Reset Clinician Password</h2>
+                        <div class="form-group">
+                            <label>License Number</label>
+                            <input type="text" id="resetLicense" placeholder="e.g., R01708/26">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="resetNewPassword" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="resetConfirmPassword" placeholder="Confirm password">
+                        </div>
+                        <div id="resetMessage"></div>
+                        <button class="btn btn-primary" onclick="resetClinicianPassword()" style="width: 100%; margin-top: 15px;">Reset Password</button>
+                        <button class="btn" onclick="closeForgotPassword()" style="width: 100%; margin-top: 10px; background: #e0e0e0; color: #333;">Cancel</button>
+                    </div>
+                `;
+            }
+
+            document.body.appendChild(modal);
+        }
+
+        function closeForgotPassword() {
+            const modal = document.getElementById('forgotPasswordModal');
+            if (modal) modal.remove();
+        }
+
+        function resetPatientPassword() {
+            const phone = document.getElementById('resetPhone').value;
+            const newPassword = document.getElementById('resetNewPassword').value;
+            const confirmPassword = document.getElementById('resetConfirmPassword').value;
+            const resetMessage = document.getElementById('resetMessage');
+
+            if (!phone || !newPassword || !confirmPassword) {
+                resetMessage.innerHTML = '<div class="message-box message-error">Please fill all fields</div>';
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                resetMessage.innerHTML = '<div class="message-box message-error">Passwords do not match</div>';
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                resetMessage.innerHTML = '<div class="message-box message-error">Password must be at least 6 characters</div>';
+                return;
+            }
+
+            const patients = DataStore.getAll('patients');
+            const patient = patients.find(p => p.phone === phone);
+
+            if (!patient) {
+                resetMessage.innerHTML = '<div class="message-box message-error">Phone number not found</div>';
+                return;
+            }
+
+            // Update password
+            patient.password = newPassword;
+            DataStore.update('patients', patient.id, patient);
+
+            resetMessage.innerHTML = '<div class="message-box message-success">✅ Password reset successfully! You can now login.</div>';
+            setTimeout(() => closeForgotPassword(), 2000);
+        }
+
+        function resetClinicianPassword() {
+            const license = document.getElementById('resetLicense').value;
+            const newPassword = document.getElementById('resetNewPassword').value;
+            const confirmPassword = document.getElementById('resetConfirmPassword').value;
+            const resetMessage = document.getElementById('resetMessage');
+
+            if (!license || !newPassword || !confirmPassword) {
+                resetMessage.innerHTML = '<div class="message-box message-error">Please fill all fields</div>';
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                resetMessage.innerHTML = '<div class="message-box message-error">Passwords do not match</div>';
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                resetMessage.innerHTML = '<div class="message-box message-error">Password must be at least 6 characters</div>';
+                return;
+            }
+
+            const clinicians = DataStore.getAll('clinicians');
+            const clinician = clinicians.find(c => c.license === license);
+
+            if (!clinician) {
+                resetMessage.innerHTML = '<div class="message-box message-error">License number not found</div>';
+                return;
+            }
+
+            // Update password
+            clinician.password = newPassword;
+            DataStore.update('clinicians', clinician.id, clinician);
+
+            resetMessage.innerHTML = '<div class="message-box message-success">✅ Password reset successfully! You can now login.</div>';
+            setTimeout(() => closeForgotPassword(), 2000);
         }
 
         function register() {
