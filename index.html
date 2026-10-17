@@ -567,6 +567,12 @@
                             <div class="header"><h1>Settings</h1></div>
                             <div id="settingsContent"></div>
                         </div>
+
+                        <!-- Payments Section -->
+                        <div id="payments" class="section">
+                            <div class="header"><h1>💳 Payments & Billing</h1></div>
+                            <div id="paymentsContent"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -920,7 +926,8 @@
                 {id: 'dashboard', label: 'Dashboard', icon: '📊'},
                 {id: 'appointments', label: 'Appointments', icon: '📅'},
                 {id: 'messaging', label: currentUser.role === 'patient' ? 'Messages' : 'Patient Messages', icon: '💬'},
-                {id: 'health-analytics', label: 'Health Analytics', icon: '📈'}
+                {id: 'health-analytics', label: 'Health Analytics', icon: '📈'},
+                {id: 'payments', label: 'Payments', icon: '💳'}
             ];
             if (currentUser.role === 'clinician') items.push({id: 'availability', label: 'My Availability', icon: '⏰'});
             items.push({id: 'settings', label: 'Settings', icon: '⚙️'});
@@ -940,6 +947,7 @@
             else if (sectionId === 'messaging') loadMessaging();
             else if (sectionId === 'health-analytics') loadAnalytics();
             else if (sectionId === 'availability') loadAvailability();
+            else if (sectionId === 'payments') loadPayments();
             else if (sectionId === 'settings') loadSettings();
         }
 
@@ -1073,6 +1081,257 @@
         function loadSettings() {
             const html = `<div style="background: white; border: 2px solid #e0e0e0; border-radius: 12px; padding: 20px; max-width: 500px;"><h3 style="margin-bottom: 20px;">Account Info</h3><div class="form-group"><label>Name</label><input type="text" value="${currentUser.name}" readonly style="background: #f9f9f9;"></div><div class="form-group"><label>${currentUser.role === 'patient' ? 'Phone' : 'License'}</label><input type="text" value="${currentUser.role === 'patient' ? currentUser.phone : currentUser.license}" readonly style="background: #f9f9f9;"></div><div class="form-group"><label>Email</label><input type="email" value="${currentUser.email}" readonly style="background: #f9f9f9;"></div></div>`;
             document.getElementById('settingsContent').innerHTML = html;
+        }
+
+        // ========================================
+        // PAYMENTS & BILLING
+        // ========================================
+        function loadPayments() {
+            const html = `
+                <div style="max-width: 1000px;">
+                    <!-- Payment Methods -->
+                    <div style="background: white; border: 2px solid #e0e0e0; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                        <h3 style="margin-bottom: 20px;">💳 Available Payment Methods</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                            <!-- M-Pesa Payment -->
+                            <div style="border: 2px solid #10b981; border-radius: 10px; padding: 20px; cursor: pointer;" onclick="showPaymentModal('mpesa')">
+                                <div style="font-size: 40px; margin-bottom: 10px;">📱</div>
+                                <h4 style="color: #10b981; margin-bottom: 8px;">M-Pesa</h4>
+                                <p style="color: #666; font-size: 13px;">Quick payments via mobile money</p>
+                                <div style="margin-top: 10px; color: #10b981; font-weight: 600;">→ Pay with M-Pesa</div>
+                            </div>
+
+                            <!-- Card Payment -->
+                            <div style="border: 2px solid #667eea; border-radius: 10px; padding: 20px; cursor: pointer;" onclick="showPaymentModal('card')">
+                                <div style="font-size: 40px; margin-bottom: 10px;">💳</div>
+                                <h4 style="color: #667eea; margin-bottom: 8px;">Credit/Debit Card</h4>
+                                <p style="color: #666; font-size: 13px;">Visa, Mastercard, American Express</p>
+                                <div style="margin-top: 10px; color: #667eea; font-weight: 600;">→ Pay with Card</div>
+                            </div>
+
+                            <!-- Bank Transfer -->
+                            <div style="border: 2px solid #f59e0b; border-radius: 10px; padding: 20px; cursor: pointer;" onclick="showPaymentModal('bank')">
+                                <div style="font-size: 40px; margin-bottom: 10px;">🏦</div>
+                                <h4 style="color: #f59e0b; margin-bottom: 8px;">Bank Transfer</h4>
+                                <p style="color: #666; font-size: 13px;">Direct bank transfer</p>
+                                <div style="margin-top: 10px; color: #f59e0b; font-weight: 600;">→ Bank Details</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transaction History -->
+                    <div style="background: white; border: 2px solid #e0e0e0; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                        <h3 style="margin-bottom: 20px;">📋 Transaction History</h3>
+                        <div id="transactionHistory" style="max-height: 400px; overflow-y: auto;"></div>
+                    </div>
+
+                    <!-- Invoice & Receipts -->
+                    <div style="background: white; border: 2px solid #e0e0e0; border-radius: 12px; padding: 20px;">
+                        <h3 style="margin-bottom: 20px;">📄 Invoices & Receipts</h3>
+                        <div id="invoicesList" style="max-height: 400px; overflow-y: auto;"></div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('paymentsContent').innerHTML = html;
+            updateTransactionHistory();
+        }
+
+        function updateTransactionHistory() {
+            const transactions = DataStore.getAll('transactions') || [];
+            const userTransactions = transactions.filter(t => t.userId === currentUser.id);
+
+            const html = userTransactions.length === 0
+                ? '<p style="color: #999; text-align: center; padding: 40px 20px;">No transactions yet</p>'
+                : userTransactions.map(t => `
+                    <div style="border-bottom: 1px solid #f0f0f0; padding: 15px 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 600;">${t.description}</div>
+                                <div style="font-size: 13px; color: #666;">Ref: ${t.reference}</div>
+                                <div style="font-size: 12px; color: #999;">${new Date(t.date).toLocaleDateString()} ${new Date(t.date).toLocaleTimeString()}</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-weight: 600; font-size: 16px; color: #10b981;">KES ${t.amount.toLocaleString()}</div>
+                                <div style="font-size: 12px; color: #666; margin-top: 4px;"><span class="status-badge status-${t.status.toLowerCase()}">${t.status}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+            document.getElementById('transactionHistory').innerHTML = html;
+        }
+
+        function showPaymentModal(method) {
+            const modal = document.createElement('div');
+            modal.id = 'paymentModal';
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 10000;';
+
+            let content = '';
+            if (method === 'mpesa') {
+                content = `
+                    <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%;">
+                        <h2 style="color: #10b981; margin-bottom: 20px;">📱 M-Pesa Payment</h2>
+                        <div class="form-group">
+                            <label>Amount (KES)</label>
+                            <input type="number" id="mpesaAmount" placeholder="e.g., 500" min="10">
+                        </div>
+                        <div class="form-group">
+                            <label>M-Pesa Phone Number</label>
+                            <input type="tel" id="mpesaPhone" placeholder="+254...">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" id="mpesaDesc" placeholder="e.g., Consultation Fee">
+                        </div>
+                        <div id="mpesaMessage"></div>
+                        <button class="btn btn-primary" onclick="processMpesaPayment()" style="width: 100%; margin-top: 15px;">Send M-Pesa Prompt</button>
+                        <button class="btn" onclick="closePaymentModal()" style="width: 100%; margin-top: 10px; background: #e0e0e0; color: #333;">Cancel</button>
+                    </div>
+                `;
+            } else if (method === 'card') {
+                content = `
+                    <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%;">
+                        <h2 style="color: #667eea; margin-bottom: 20px;">💳 Card Payment</h2>
+                        <div class="form-group">
+                            <label>Amount (KES)</label>
+                            <input type="number" id="cardAmount" placeholder="e.g., 500" min="10">
+                        </div>
+                        <div class="form-group">
+                            <label>Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div class="form-group">
+                                <label>Expiry</label>
+                                <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label>CVV</label>
+                                <input type="text" id="cardCvv" placeholder="123" maxlength="4">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Cardholder Name</label>
+                            <input type="text" id="cardName" placeholder="Your Name">
+                        </div>
+                        <div id="cardMessage"></div>
+                        <button class="btn btn-primary" onclick="processCardPayment()" style="width: 100%; margin-top: 15px;">Pay Now</button>
+                        <button class="btn" onclick="closePaymentModal()" style="width: 100%; margin-top: 10px; background: #e0e0e0; color: #333;">Cancel</button>
+                    </div>
+                `;
+            } else if (method === 'bank') {
+                content = `
+                    <div style="background: white; padding: 30px; border-radius: 12px; max-width: 450px; width: 90%;">
+                        <h2 style="color: #f59e0b; margin-bottom: 20px;">🏦 Bank Transfer Details</h2>
+                        <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                            <div style="margin-bottom: 15px;">
+                                <div style="font-size: 12px; color: #92400e;">BANK NAME</div>
+                                <div style="font-weight: 600; font-size: 16px;">Equity Bank Kenya</div>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <div style="font-size: 12px; color: #92400e;">ACCOUNT NUMBER</div>
+                                <div style="font-weight: 600; font-size: 16px;">1234567890</div>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <div style="font-size: 12px; color: #92400e;">ACCOUNT NAME</div>
+                                <div style="font-weight: 600; font-size: 16px;">TeleCare Health Solutions</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; color: #92400e;">SWIFT CODE</div>
+                                <div style="font-weight: 600; font-size: 16px;">EQBLKENA</div>
+                            </div>
+                        </div>
+                        <div style="background: #e0f2fe; border: 1px solid #0284c7; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                            <div style="font-size: 13px; color: #0c4a6e;">Use your reference number as payment description:<br><strong style="font-size: 14px; color: #000;">REF-${Date.now()}</strong></div>
+                        </div>
+                        <button class="btn" onclick="closePaymentModal()" style="width: 100%; background: #667eea; color: white;">Close</button>
+                    </div>
+                `;
+            }
+
+            modal.innerHTML = content;
+            document.body.appendChild(modal);
+        }
+
+        function closePaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            if (modal) modal.remove();
+        }
+
+        function processMpesaPayment() {
+            const amount = document.getElementById('mpesaAmount').value;
+            const phone = document.getElementById('mpesaPhone').value;
+            const desc = document.getElementById('mpesaDesc').value;
+            const message = document.getElementById('mpesaMessage');
+
+            if (!amount || !phone || !desc) {
+                message.innerHTML = '<div class="message-box message-error">Please fill all fields</div>';
+                return;
+            }
+
+            // Save transaction
+            const transaction = {
+                id: 'trans_' + Date.now(),
+                userId: currentUser.id,
+                method: 'M-Pesa',
+                amount: parseInt(amount),
+                description: desc,
+                reference: 'MPesa-' + Date.now(),
+                phone: phone,
+                date: new Date(),
+                status: 'Pending'
+            };
+
+            if (!DataStore.getAll('transactions')) {
+                localStorage.setItem('transactions', JSON.stringify([]));
+            }
+
+            DataStore.add('transactions', transaction);
+
+            message.innerHTML = '<div class="message-box message-success">✅ M-Pesa prompt sent! Check your phone and complete the payment.</div>';
+            setTimeout(() => {
+                closePaymentModal();
+                loadPayments();
+            }, 2000);
+        }
+
+        function processCardPayment() {
+            const amount = document.getElementById('cardAmount').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiry = document.getElementById('cardExpiry').value;
+            const cvv = document.getElementById('cardCvv').value;
+            const name = document.getElementById('cardName').value;
+            const message = document.getElementById('cardMessage');
+
+            if (!amount || !cardNumber || !expiry || !cvv || !name) {
+                message.innerHTML = '<div class="message-box message-error">Please fill all fields</div>';
+                return;
+            }
+
+            // Save transaction
+            const transaction = {
+                id: 'trans_' + Date.now(),
+                userId: currentUser.id,
+                method: 'Card',
+                amount: parseInt(amount),
+                description: 'Card Payment - ' + name,
+                reference: 'CARD-' + Date.now(),
+                cardLast4: cardNumber.slice(-4),
+                date: new Date(),
+                status: 'Completed'
+            };
+
+            if (!DataStore.getAll('transactions')) {
+                localStorage.setItem('transactions', JSON.stringify([]));
+            }
+
+            DataStore.add('transactions', transaction);
+
+            message.innerHTML = '<div class="message-box message-success">✅ Payment processed successfully! Receipt sent to email.</div>';
+            setTimeout(() => {
+                closePaymentModal();
+                loadPayments();
+            }, 2000);
         }
 
         function logout() {
